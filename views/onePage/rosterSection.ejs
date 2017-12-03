@@ -1,0 +1,114 @@
+<section id="roster">
+
+    <div class="team-v1 bg-grey content-lg">
+        <div class="container">
+            <div class="title-v1">
+                <h2>Notre Roster <small>(<%= mains.length%>)</small></h2>
+            </div>
+            
+            <div class="col-md-10 col-md-offset-1">
+                <table class="table roster-table">
+                    <% var tank = new Array(); var melee = new Array(); var caster = new Array(); var heal = new Array(); %>
+                    <% mains.forEach(function(char){ 
+                        switch(char.role){
+                            case "TANK": tank.push(char); break;
+                            case "MELEE": melee.push(char); break;
+                            case "CASTER": caster.push(char); break;
+                            case "HEAL": heal.push(char); break;
+                        }
+                     }) %>
+                    
+                    <% var maxRole = Math.max(tank.length, melee.length, caster.length, heal.length)%>
+                    
+                    <thead>
+                        <tr>
+                            <td><h5><center>TANK (<%=tank.length%>)</center></h5></td>
+                            <td><h5><center>MELEE (<%=melee.length%>)</center></h5></td>
+                            <td><h5><center>CASTER (<%=caster.length%>)</center></h5></td>
+                            <td><h5><center>HEALER (<%=heal.length%>)</center></h5></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < maxRole; i++){ %>
+                            <tr><!-- TANK -->
+                                <% if(i<tank.length){ %>
+                                    <td style="color:<%=tank[i].getClassColorBlack()%>">
+                                        <img src="<%= tank[i].getClassIcon() %>"><%= tank[i].name %>
+                                        <% users.forEach(function(u){ %>
+                                            <% if(tank[i]._id_user.toString() === u._id.toString()){ %>
+                                                <% if(u.rank === 3){ %>
+                                                    <small>(A)</small>
+                                                <% } %>
+                                        
+                                            <% } %>
+                                        <% }); %>
+                                        <span class="pull-right ilvl-right"><%= tank[i].ilvl %></span>
+                                    </td>  
+                                <% } else{ %>
+                                    <td></td>
+                                <% } %>
+                                
+                                <!-- MELEE -->
+                                <% if(i<melee.length){ %>
+                                    <td style="color:<%=melee[i].getClassColorBlack()%>">
+                                        <img src="<%= melee[i].getClassIcon() %>"><%= melee[i].name %> 
+                                        <% users.forEach(function(u){ %>
+                                            <% if(melee[i]._id_user.toString() === u._id.toString()){ %>
+                                                <% if(u.rank === 3){ %>
+                                                    <small>(A)</small>
+                                                <% } %>
+                                        
+                                            <% } %>
+                                        <% }); %>
+                                        <span class="pull-right ilvl-right"><%= melee[i].ilvl %></span>
+                                    </td>  
+                                <% } else{ %>
+                                    <td></td>
+                                <% } %>
+
+                                <!-- CASTER -->
+                                <% if(i<caster.length){ %>
+                                    <td style="color:<%=caster[i].getClassColorBlack()%>">
+                                        <img src="<%= caster[i].getClassIcon() %>"><%= caster[i].name %> 
+                                        <% users.forEach(function(u){ %>
+                                            <% if(caster[i]._id_user.toString() === u._id.toString()){ %>
+                                                <% if(u.rank === 3){ %>
+                                                    <small>(A)</small>
+                                                <% } %>
+                                        
+                                            <% } %>
+                                        <% }); %>
+                                        <span class="pull-right ilvl-right"><%= caster[i].ilvl %></span>
+                                    </td>
+                                <% }else{ %>
+                                    <td></td>
+                                <% } %>
+
+                                <!-- HEALER -->
+                                <% if(i<heal.length){ %>
+                                    <td style="color:<%=heal[i].getClassColorBlack()%>">
+                                        <img src="<%= heal[i].getClassIcon() %>"><%= heal[i].name %> 
+                                        <% users.forEach(function(u){ %>
+                                            <% if(heal[i]._id_user.toString() === u._id.toString()){ %>
+                                                <% if(u.rank === 3){ %>
+                                                    <small>(A)</small>
+                                                <% } %>
+                                        
+                                            <% } %>
+                                        <% }); %>
+                                        <span class="pull-right ilvl-right"><%= heal[i].ilvl %></span>
+                                    </td>   
+                                <% } else{ %>
+                                    <td></td>
+                                <% } %>
+                            </tr>
+                        <% } %>
+  
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+
+        </div>
+    </div>
+</section>

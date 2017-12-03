@@ -1,0 +1,31 @@
+{
+    "Dall": {
+        "db": "MONGO_URI",
+        "es":{
+		"host": "DALL_ES_HOST",
+		"port": "DALL_ES_PORT"
+        },
+        "registerCode": "DALL_REGISTER_CODE"
+    },
+    "Cookie": {
+        "parser":{
+            "secret": "COOKIE_PARSER_SECRET"
+        },
+        "session":{
+            "secret1": "COOKIE_SESSION_SEC1",
+            "secret2": "COOKIE_SESSION_SEC2"
+        }
+    },
+    "Mail":{
+        "service": "MAIL_SERVICE",
+        "user": "MAIL_USER",
+        "pass": "MAIL_PASS"
+    },
+    "Bnet": {
+        "apiKey": "BNET_API_KEY"
+    },
+    "Wlogs":{
+      "publicKey": "WLOGS_PUBLIC_KEY",
+      "privateKey": "WLOGS_PRIVATE_KEY"
+    }
+}

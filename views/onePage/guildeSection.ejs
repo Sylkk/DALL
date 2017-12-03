@@ -1,0 +1,307 @@
+<section id="guilde" class="about-section section-first">
+    <!-- header guilde -->
+    <div class="block-v1">
+        <div class="container">
+            <div class="row content-boxes-v3">
+                <div class="col-md-4 md-margin-bottom-30">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-home"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Ysondre - HORDE</h2>
+                        <p>Guilde PVE à vocation de clean le contenu mythique le plus rapidement possible</p>
+                    </div>
+                </div>
+                <div class="col-md-4 md-margin-bottom-30">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-calendar"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">3 Soirs Semaine</h2>
+                        <p>Mercredi - Jeudi - Dimanche<br/>
+                           20h15 - 00h</p>
+                    </div>
+                </div>
+                <%
+                    var recrut = false;
+                    for(var i=0; i<tabRecrut.length; i++){
+                        for(var j=0; j<4; j++){ 
+                            if(tabRecrut[i][j] === 1){
+                                recrut = true
+                            }
+                        }
+                    }
+                %>
+                <div class="col-md-4">
+                    <i class="icon-custom rounded-x icon-bg-u fa fa-bolt"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Recrutement Actif</h2>
+                        <% if(tabRecrut && recrut){ %>
+                            <p>
+                            <%  for(var i=0; i<tabRecrut.length; i++){
+                                    for(var j=0; j<4; j++){ %>
+                                        <% if(tabRecrut[i][j] === 1){%>
+                                            <%- getRecrutementActifList(i,j)%>
+                                        <%}%>
+                                    <% } %>
+                            <% } %>
+                            </p>
+                        <% }else{ %>
+                            <p>- Aucune classe particulière<br/><br/>
+                                Mais nous étudions toute candidature.
+                            </p>
+                        <% } %>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notre Guilde -->
+    <div class="about-image bg-grey">
+        <div class="container">
+            <div class="title-v1">
+                <h1>Notre Guilde</h1>
+                <p>
+                    Danse avec les Loots a une vocation haut niveau en PVE : un haut niveau de connaissance des combats et de maîtrise de nos classes. 
+                    Et pour atteindre ce niveau avec seulement 3 soirs de raid par semaine, ça nécessite la rigueur et l'organisation d'une petite équipe de sport.<br/>
+                    Comme évidemment on vise des victoires, on attend de chacun un engagement personnel comme celui d'un sportif : chacun a la responsabilité de sa propre performance. 
+                </p>
+            </div>
+            <div class="img-center">
+                <img class="img-responsive" src="/onePage/assets/img/sliders/revolution/cenarius_hm_.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Culture & vision -->
+    <div class="container content-lg">
+        <div class="title-v1">
+            <h2>NOTRE CULTURE ET NOS VALEURS</h2>
+            <p>La culture d'équipe fédère les gens autour de valeurs communes et de comportements en accord avec nos objectifs.
+               C'est pourquoi chacun doit être fier de son équipe et de son tag de guilde.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 content-boxes-v3 margin-bottom-40">
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">L'implication : le savoir, clé du succès</h5>
+                        <p>On attend que vous vous teniez informés des changements liés à votre classe, de connaitre les techniques des boss, 
+                            que vous consultiez les documents qu'on mettra à votre disposition, etc.</p>
+                    </div>
+                </div>
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-directions"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">La performance : le savoir-faire, gage de souplesse</h2>
+                        <p>La théorie, c'est bien, mais on s'entraîne, on pratique, jusqu'à connaître sa classe à fond. Comme ça, en live, 
+                            on n'a plus qu'à gérer les imprévus et à s'adapter aux changements.</p>
+                    </div>
+                </div>
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-diamond"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">La rigueur : le savoir-être, preuve de respect</h2>
+                        <p>En raid, la ponctualité est de mise, et chacun doit être opérationnel. Mangez correctement, dormez suffisamment... 
+                            Ou faites ce que vous voulez, mais soyez en forme ! Pas question de wipe toute la nuit parce que Machin s'endort et meurt pour la 3ème fois dans la même aoe !</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <img class="img-responsive wow bounceInRight" src="/onePage/assets/img/sliders/revolution/bg9.jpg" alt="" style="visibility: visible; animation-name: bounceInRight;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Officiers -->
+    <div class="team-v1 bg-grey content-lg">
+        <div class="container">
+            <div class="title-v1">
+                <h2>Nos officiers</h2>
+                <p>
+                    Une équipe, c'est ses joueurs... mais c'est aussi ses cadres. 
+                    Nos officiers bossent dans l'ombre pour faire en sorte que tout se passe bien, forts de leur expérience dans de grandes structures comme Silent ou Empire !</p>
+            </div>
+
+            <ul class="list-unstyled row">
+                <li class="col-sm-4 col-xs-6 md-margin-bottom-30">
+                    <div class="team-img">
+                        <img class="img-responsive" src="/onePage/assets/img/team/img1-md.jpg" alt="">
+                        <ul>
+                            <li><h3>Guild Master</h3></li>
+                        </ul>
+                    </div>
+                    <h3>Jounah <small>(le dirigeant)</small></h3>
+                    <h4>Guild Master</h4>
+                    <p>Le GM est le Maître Loot. Quelle pièce est la mieux ? J'avais pas déjà looté ce bijou un jour ? Sur quel boss il faut breloque ? Est-ce que je need ce LQE sur mon reroll ?
+                        <br/>Pas besoin d'historique de vos loots sur vos rerolls, pas besoin d'Atlas Loot pour savoir ce qu'il manque pour avoir un stuff opti : Jounah est là.</p>
+                </li>
+                <li class="col-sm-4 col-xs-6 md-margin-bottom-30">
+                    <div class="team-img">
+                        <img class="img-responsive" src="/onePage/assets/img/team/img2-md.jpg" alt="">
+                        <ul>
+                            <li><h3>Raid Leader</h3></li>
+                        </ul>
+                    </div>
+                    <h3>Radious <small>(l'entraineur)</small></h3>
+                    <h4>Raid Leader</h4>
+                    <p> Fort de ses 1,02 metre, cette petite teigne verte ne rigole pas en progress. 
+                        Sa persévérance et sa motivation sont inversement proportionnelles à sa taille,
+                        et il vous faudra suivre ses consignes... y compris si ça ne ressemble pas à ce que vous avez vu sur la vidéo de la guilde Truc sur le stream de Machin : 
+                        c'est pas parce que vous l'avez vu fonctionner chez d'autres que c'est ce qu'il y a de plus adapté pour nous. 
+                        <br/>Et puis un peu d'exotisme, ça fait pas de mal, 
+                        parfois : n'ayez crainte, vous êtes entre de bonnes mains !
+                    </p>
+                </li>
+                <li class="col-sm-4 col-xs-6">
+                    <div class="team-img">
+                        <img class="img-responsive" src="/onePage/assets/img/team/img3-md.jpg" alt="">
+                        <ul>
+                            <li><h3>Officiers</h3></li>
+                        </ul>
+                    </div>
+                    <h3>Profet - Rantan - Sylkk <small>(le staff)</small></h3>
+                    <h4>Officiers</h4>
+                    <p>Profet est la sentinelle qui scrute les combats et assiste le Raid Leader.
+                        <br/>Rantan est le chef de l'attroupement au pied des boss, puisqu'il supervise le boulot des cacs (quand il n'amuse pas la galerie).
+                        <br/>Sylkk (en régie, responsable des outils informatiques) va devenir votre meilleur ami : il est en priorité responsable de la team heal.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Counter -->
+    <% var tank = new Array(); var dps = new Array(); var heal = new Array(); %>
+    <% mains.forEach(function(char){ 
+        switch(char.role){
+            case "TANK": tank.push(char); break;
+            case "MELEE": dps.push(char); break;
+            case "CASTER": dps.push(char); break;
+            case "HEAL": heal.push(char); break;
+        }
+     }) %>
+    <div class="parallax-counter parallaxBg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <div class="counters">
+                        <span class="counter"><%= mains.length %></span>
+                        <h4>Membres</h4>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="counters">
+                        <span class="counter"><%= dps.length%></span>
+                        <h4>DPS</h4>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="counters">
+                        <span class="counter"><%= tank.length %></span>
+                        <h4>Tanks</h4>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="counters">
+                        <span class="counter"><%= heal.length %></span>
+                        <h4>Healers</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Counter -->
+</section>
+
+<%
+    function getRecrutementActifList(i,j){
+        var ret = "";
+        switch(i){
+            case 0:
+                ret += '<img src="/onePage/assets/img/class_icon/_dk.png" width="16"><span style="color:#C41F3B">'
+                if(j==0) ret += ' Blood';
+                if(j==1) ret += ' Frost';
+                if(j==2) ret += ' Unholy';
+                ret += '</span><br>';
+            break;
+            case 1:
+                ret += '<img src="/onePage/assets/img/class_icon/_dh.png" width="16"><span style="color:#A330C9">'
+                if(j==0) ret += ' Vengeance';
+                if(j==1) ret += ' Havoc';
+                ret += '</span><br>';
+            break;
+            case 2:
+                ret += '<img src="/onePage/assets/img/class_icon/_druid.png" width="16"><span style="color:#FF7D0A">'
+                if(j==0) ret += ' Guardian';
+                if(j==1) ret += ' Feral';
+                if(j==2) ret += ' Balance';
+                if(j==3) ret += ' Restoration';
+                ret += '</span><br>';
+            break;
+            case 3:
+                ret += '<img src="/onePage/assets/img/class_icon/_hunt.png" width="16"><span style="color:#ABD473">'
+                if(j==0) ret += ' Beast Mastery';
+                if(j==1) ret += ' Marksmanship';
+                if(j==2) ret += ' Survival';
+                ret += '</span><br>';
+            break;
+            case 4:
+                ret += '<img src="/onePage/assets/img/class_icon/_mage.png" width="16"><span style="color:#69CCF0">'
+                if(j==0) ret += ' Frost';
+                if(j==1) ret += ' Fire';
+                if(j==2) ret += ' Arcane';
+                ret += '</span><br>';
+            break;
+            case 5:
+                ret += '<img src="/onePage/assets/img/class_icon/_monk.png" width="16"><span style="color:#00FF96">'
+                if(j==0) ret += ' Brewmaster';
+                if(j==1) ret += ' Windwalker';
+                if(j==2) ret += ' Mistweaver';
+                ret += '</span><br>';
+            break;
+            case 6:
+                ret += '<img src="/onePage/assets/img/class_icon/_pala.png" width="16"><span style="color:#F58CBA">'
+                if(j==0) ret += ' Protection';
+                if(j==1) ret += ' Retribution';
+                if(j==2) ret += ' Holy';
+                ret += '</span><br>';
+            break;
+            case 7:
+                ret += '<img src="/onePage/assets/img/class_icon/_priest.png" width="16"><span style="color:#FFFFFF">'
+                if(j==0) ret += ' Shadow';
+                if(j==1) ret += ' Holy';
+                if(j==2) ret += ' Discipline';
+                ret += '</span><br>';
+            break;
+            case 8:
+                ret += '<img src="/onePage/assets/img/class_icon/_rogue.png" width="16"><span style="color:#FFF569">'
+                if(j==0) ret += ' Assassination';
+                if(j==1) ret += ' Outlaw';
+                if(j==2) ret += ' Subtlety';
+                ret += '</span><br>';
+            break;
+            case 9:
+                ret += '<img src="/onePage/assets/img/class_icon/_sham.png" width="16"><span style="color:#0070DE">'
+                if(j==0) ret += ' Enhancement';
+                if(j==1) ret += ' Elemental';
+                if(j==2) ret += ' Restoration';
+                ret += '</span><br>';
+            break;
+            case 10:
+                ret += '<img src="/onePage/assets/img/class_icon/_warlock.png" width="16"><span style="color:#9482C9">'
+                if(j==0) ret += ' Affliction';
+                if(j==1) ret += ' Demonology';
+                if(j==2) ret += ' Destruction';
+                ret += '</span><br>';
+            break;
+            case 11:
+                ret += '<img src="/onePage/assets/img/class_icon/_war.png" width="16"><span style="color:#C79C6E">'
+                if(j==0) ret += ' Protection';
+                if(j==1) ret += ' Fury';
+                if(j==2) ret += ' Arms';
+                ret += '</span><br>';
+            break;
+        }
+        return ret; 
+    }
+%>

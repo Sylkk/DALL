@@ -1,0 +1,63 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <small class="pull-right"><%= moment(caster[0].lastUpdated).fromNow() %></small>
+        <h5>Roster Feed&nbsp<small>(75 last) (wip)</small></h5> 
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-lg-12">
+                
+                <%  var tabFeed = new Array();
+                    var tabName = new Array();
+
+                    chars.forEach(function(char){
+                        var feed = char.data.feed;
+
+                        for(var i in feed){
+                            if(feed[i].type === "LOOT" || feed[i].type === "BOSSKILL"){
+                                feed[i].name = char.name;
+                                feed[i].class_number = char.class;
+                                tabFeed.push(feed[i]);
+                            }
+                        }
+                    })
+                %>
+                
+                <% sortJsonArrayByProperty(tabFeed, 'timestamp', -1); %>
+                <% var feedNumberLsenght = 75 %>
+
+                <% if(chars && tabFeed){ %>
+                    <table>
+                        <% for(var i=0; i<feedNumberLsenght; i++){%>
+                        <tr>
+                            <% if(tabFeed[i].bonusLists){ %>
+                                    <% var bonus = tabFeed[i].bonusLists.join(":");%>
+                            <% } %>
+                            <td class="profile-items">
+                                <%=moment(tabFeed[i].timestamp).fromNow()%> 
+                            </td>
+                            <td class="profile-items">
+                                <% if (tabFeed[i].type === "LOOT"){ %>
+                                    <span style="color:<%=chars[0].getClassColor(tabFeed[i].class_number)%>"><b><%= tabFeed[i].name %></b></span>
+                                    received
+                                    <b><a href="//www.wowhead.com/item=<%=tabFeed[i].itemId%>" rel="<%=chars[0].getiWowHeadRel(tabFeed[i])%>" class="<%=chars[0].getiQuality(tabFeed[i])%>"><%=tabFeed[i].itemId%></b></a></b>
+                                <% } %>
+
+                                <% if(tabFeed[i].type === "BOSSKILL"){ %>
+                                    <span style="color:<%=chars[0].getClassColor(tabFeed[i].class_number)%>"><b><%= tabFeed[i].name %></b></span>
+                                    defeated 
+                                    <span style="color:red"><%= tabFeed[i].achievement.title %> <b><small>(x<%=tabFeed[i].quantity%>)</small></b></span>
+                                <% } %>
+
+                            </td>
+                        </tr>
+                        <% } %>
+                    </table>
+                <% } %>
+                
+                <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More *ajax(TODO)</button>
+                
+            </div>
+        </div>
+    </div>
+</div>

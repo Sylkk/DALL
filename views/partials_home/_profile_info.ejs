@@ -1,0 +1,17 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Main</h5>
+    </div>
+    <div class="text-center ibox-content">
+        <h1 style="color:<%=main.getClassColor();%>"><%=main.name%>-<%=main.realm%></h1>
+        <div class="m-b-sm">
+            <img alt="image" class="img-circle" src="<%=user.getIconeMain()%>" style="border: 1px solid <%main.getClassColor();%>;">
+        </div>
+            <p class="font-bold" style="color:<%= main.getClassColor()%>"><%= main.getClassName() %> - <%= main.ilvl%>.ilvl</p>
+            <p class="font-bold" style="color:<%= main.getClassColor()%>">rôle : <b><%=main.role%></b></p>
+        <div class="text-center">
+            <a class="btn btn-xs btn-white" href="/profile/<%=main.realm%>/<%=main.name%>"><i class="fa fa-caret-right"></i> Voir Profile </a>
+            <a class="btn btn-xs btn-primary" href="/profile"><i class="fa fa-plus"></i> Ajouter un reroll</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <span class="label label-success pull-right"></span>
+        <h5>Reputations</h5>
+    </div>
+    <div class="ibox-content">
+        <ul class="stat-list m-t-lg ">
+
+            <!-- Reputation Listing -->
+            <%# 1859 = NightFallen
+                2045 = Armies of LegionFall
+                2165 = Army of the Light
+                2170 = Argussian Reach
+            %> 
+            <% var tabReput = [1859,2045,2165,2170]%>
+            <% for (i=0; i < tabReput.length; i++){
+                    var reput = main.getReputation(tabReput[i]);
+                    if(reput){
+                        var percent = Math.round((reput.value*100)/reput.max); 
+                        if(reput.standing === 7)
+                            percent = 100;
+                    } %>
+                <li>
+                    <div>
+                        <span><%=reput.name%></span>
+                        <small class="pull-right"><%=percent %> %</small>
+                    </div>
+                    <div class="progress progress-mini">
+                        <div style="width: <%=percent%>%;" class="progress-bar progress-bar-<%=main.getReputationBarColor(reput.standing)%>"></div>
+                    </div>
+                </li>
+            <% }
+            %>
+
+        </ul>
+    </div>
+</div>

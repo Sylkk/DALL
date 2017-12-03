@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %></strong>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content">
+                <div class="animated fadeInRightBig">
+                    <div class="form-group col-sm-6">
+                        <label for="input_name" >Pseudo</label>
+                        <input type="text" class="form-control" id="input_name" value="<%=user.name%>" disabled><br/>
+                        
+                        <label for="input_pass" >Nouveau Password</label>
+                        <input type="password" class="form-control" id="input_pass" value=""><br/>
+                        
+                        <label for="input_pass" >Confirmation Password</label>
+                        <input type="password" class="form-control" id="input_pass" value="">
+                        
+                    </div>
+                        
+                    <div class="form-group col-sm-6">
+                        <label for="input_mail" >Adresse Email</label>
+                        <input type="text" class="form-control" id="input_mail" value="<%=user.email%>" disabled>
+                        <br/><br/><br>
+                        
+                        <div class="settings-item">
+                            <label> Recevoir un email pour chaque nouvelle Apply :</label>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="mail_receiv">
+                                    <label class="onoffswitch-label" for="mail_receiv">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        
+                        <div class="settings-item">
+                            <label> Recevoir un email pour chaque nouveau message recu :</label>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="message_receiv">
+                                    <label class="onoffswitch-label" for="message_receiv">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="form-group col-sm-6"></div>
+
+                    
+
+
+                    <div class="form-group col-sm-12">
+                        <button href="/settings" class="btn btn-primary m-t" disabled>Soon</button>
+                    </div>
+                </div>
+            </div>
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <% include partials/_miscjs %>
+
+</body>
+
+</html>

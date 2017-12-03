@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %> </strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content animated fadeInRightBig">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" >Char Edit</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2">User Edit</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-3">Recrutement</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <!-- TAB 1 -->
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <!-- Setmain -->
+                                        <div class="col-lg-6">
+                                            <h2>Set Main for user</h2>
+                                            <div class="" id="setMain">
+                                                <form class="form-inline" role="form" method="POST" action="/admin/setMain">
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="userSelectMain" name="userSelect">
+                                                            <option value="select" disabled selected>Select UserName...</option>
+                                                            <optgroup label="User(s) sans main">
+                                                                <% users.forEach(function(user){ %>
+                                                                    <%if(!user.icone){ %>
+                                                                    <option value="<%=user._id%>"><%=user.getRankName() %> - <%= user.name %></option>
+                                                                    <% } %>
+                                                                <% }) %>
+                                                            </optgroup>
+                                                            <optgroup label="User(s) avec main">
+                                                                <% users.forEach(function(userFromList){ %>
+                                                                    <%if(userFromList.icone){ %>
+                                                                    <option value="<%=userFromList._id%>"><%=userFromList.getRankName() %> - <%= userFromList.name %></option>
+                                                                    <% } %>
+                                                                <% }) %>
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="charSelectMain" name="charSelect" disabled>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                          <button type="submit" class="btn btn-primary" value="OK">Set Main</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- END OF SetMain -->
+                    
+                                        <!-- Remove Main -->
+                                        <div class="col-lg-6">
+                                            <h2>Remove Main <small>(out roster)</small></h2>
+                                            <div class="" id="RemoveMain">
+                                                <form class="form-inline" role="form" method="POST" action="/admin/removeMain">
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="removeSelectMain" name="charSelect">
+                                                            <option value="select" disabled selected>Select Main...</option>
+                                                            <% chars.forEach(function(chara){ %>
+                                                                <% if(chara.main){%>
+                                                                    <option style="color:<%=chara.getClassColor()%>;font-weight:bold;" value="<%=chara._id%>"><%= chara.name %> (<%=chara.ilvl%>)</option>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-danger" value="Remove">Remove Main</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- END OF RemoveMain -->
+                                        
+                                        <!-- SetRole -->
+                                        <div class="col-lg-6">
+                                            <h2>Set Role for main <small>(if missing)</small></h2>
+                                            <div class="" id="setRole">
+                                                <form class="form-inline" role="form" method="POST" action="/admin/setRole">
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="charSelectRole" name="charSelect">
+                                                            <option value="select" disabled selected>Select Char...</option>
+                                                            <% chars.forEach(function(chara){ %>
+                                                                <% if(chara.main && typeof chara.role === "undefined"){%>
+                                                                    <option style="color:<%=chara.getClassColor()%>;font-weight:bold;" value="<%=chara._id%>"><%= chara.name %> (<%=chara.ilvl%>)</option>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="roleSelectRole" name="roleSelect">
+                                                            <option value="select" disabled selected>Select role...</option>
+                                                            <option value="TANK">Tank</option>
+                                                            <option value="HEAL">Healer</option>
+                                                            <option value="CASTER">Caster</option>
+                                                            <option value="MELEE">Melee</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                          <button type="submit" class="btn btn-primary" value="OK">Set Role</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- END OF SetRole -->
+                                    </div>
+                                </div>
+                                <!-- END OF TAB 1 -->
+                                
+                                <!-- TAB 2 -->
+                                <div id="tab-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <!-- SetRank User -->
+                                        <div class="col-lg-6">
+                                            <h2>Set Rank for user</h2>
+                                            <div class="" id="setRole">
+                                                <form class="form-inline" role="form" method="POST" action="/admin/setUserRank">
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="userSelectRank" name="userSelect">
+                                                            <option value="select" disabled selected>Select User...</option>
+                                                            <% users.forEach(function(userFromList){ %>
+                                                                <% if(userFromList.rank < user.rank){ %>
+                                                                    <option value="<%=userFromList._id%>"><%=userFromList.getRankName() %> (<%=userFromList.rank%>) - <%= userFromList.name %></option>
+                                                                <% }else if(userFromList.rank === user.rank && userFromList.name !== user.name){ %>
+                                                                    <option value="<%=userFromList._id%>"><%=userFromList.getRankName() %> (<%=userFromList.rank%>) - <%= userFromList.name %></option>
+                                                                <% }else{ %>    
+                                                                    <option value="<%=userFromList._id%>" disabled>&Oslash - <%=userFromList.getRankName() %> (<%=userFromList.rank%>) - <%= userFromList.name %></option>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="rankSelectRank" name="rankSelect">
+                                                            <option value="select" disabled selected>Select rank...</option>
+                                                            <option value="1">1 - noob</option>
+                                                            <option value="2">2 - ami du Loot</option>
+                                                            <option value="3">3 - apply</option>
+                                                            <option value="4">4 - member</option>
+                                                            <option value="5">5 - raider</option>
+                                                            <option value="6">6 - intendant</option>
+                                                            <% if(user.rank >= 9 ){%>
+                                                            <option value="7">7 - officer</option>
+                                                            <option value="8">8 - sous-admin</option>
+                                                            <option value="9">9 - admin</option>
+                                                            <% } %>
+                                                            <% if(user.rank >= 10 ){%>
+                                                            <option value="10">10 - webmaster</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                          <button type="submit" class="btn btn-primary" value="OK">Set Rank</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- END OF SetRole -->
+
+                                        
+                                        <!-- Delete User -->
+                                        <% if(user.rank >= 9){%>
+                                        <div class="col-lg-6">
+                                            <h2>Delete User</h2>
+                                            <div class="" id="DeleteUser">
+                                                <form class="form-inline" role="form" method="POST" action="/admin/deleteUser">
+
+                                                    <div class="form-group">
+                                                        <select class="form-control input-small" id="deleteSelectUser" name="userSelect">
+                                                            <option value="select" disabled selected>Select User...</option>
+                                                            <% users.forEach(function(userFromList){ %>
+                                                                <% if(userFromList.rank < user.rank){ %>
+                                                                    <option value="<%=userFromList._id%>"><%=userFromList.getRankName() %> - <%= userFromList.name %> (<%=userFromList.email%>)</option>
+                                                                <% } %>    
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-danger" value="Delete">Delete User</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                        <!-- END OF DeleteUser -->
+                                    </div>
+                                </div>
+                                <!-- END OF TAB 2 -->
+                                
+                                <!-- TAB 3 -->
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="col-lg-6">
+                                            <h2>Recrutement</h2>
+                                            <div class="recrutement" id="">
+                                                <% if(tabRecrut){ %>
+                                                
+                                                    <table class="table-recrutement">
+                                                        <tbody>
+                                                            <tr id="recrut_dk">
+                                                                <td class="wow_class top_class"><img src="/onePage/assets/img/class_icon/_dk.png"></td>
+                                                                <td class="wow_spename top_class">Death-Knight</td>
+                                                                <td id="0.0" class="wow_spe <%if(tabRecrut[0][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_blood.gif"></td>
+                                                                <td id="0.1" class="wow_spe <%if(tabRecrut[0][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_givre.gif"></td> 
+                                                                <td id="0.2" class="wow_spe <%if(tabRecrut[0][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_impie.gif"></td>
+                                                                <td id="0.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_dh">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_dh.png"></td>
+                                                                <td class="wow_spename">Demon-Hunter</td>
+                                                                <td id="1.0" class="wow_spe <%if(tabRecrut[1][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dh_vengeance.jpg"></td>
+                                                                <td id="1.1" class="wow_spe <%if(tabRecrut[1][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dh_havoc.jpg"></td> 
+                                                                <td id="1.2"></td>
+                                                                <td id="1.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_druid">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_druid.png"></td>
+                                                                <td class="wow_spename">Druid</td>
+                                                                <td id="2.0" class="wow_spe <%if(tabRecrut[2][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_gardien.gif"></td>
+                                                                <td id="2.1" class="wow_spe <%if(tabRecrut[2][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_feral.gif"></td>
+                                                                <td id="2.2" class="wow_spe <%if(tabRecrut[2][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_equi.gif"></td>
+                                                                <td id="2.3" class="wow_spe <%if(tabRecrut[2][3] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_resto.gif"></td>
+                                                            </tr>
+                                                            <tr id="recrut_hunter">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_hunt.png"></td>
+                                                                <td class="wow_spename">Hunter</td>
+                                                                <td id="3.0" class="wow_spe <%if(tabRecrut[3][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_beast.gif"></td>
+                                                                <td id="3.1" class="wow_spe <%if(tabRecrut[3][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_precis.gif"></td>
+                                                                <td id="3.2" class="wow_spe <%if(tabRecrut[3][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_survie.gif"></td>
+                                                                <td id="3.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_mage">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_mage.png"></td>
+                                                                <td class="wow_spename">Mage</td>
+                                                                <td id="4.0" class="wow_spe <%if(tabRecrut[4][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_frost.gif"></td>
+                                                                <td id="4.1" class="wow_spe <%if(tabRecrut[4][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_feu.gif"></td> 
+                                                                <td id="4.2" class="wow_spe <%if(tabRecrut[4][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_arcane.gif"></td>
+                                                                <td id="4.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_monk">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_monk.png"></td>
+                                                                <td class="wow_spename">Monk</td>
+                                                                <td id="5.0" class="wow_spe <%if(tabRecrut[5][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_brew.gif"></td>
+                                                                <td id="5.1" class="wow_spe <%if(tabRecrut[5][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_wind.gif"></td>   
+                                                                <td id="5.2" class="wow_spe <%if(tabRecrut[5][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_heal.gif"></td>
+                                                                <td id="5.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_paladin">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_pala.png"></td>
+                                                                <td class="wow_spename">Paladin</td>
+                                                                <td id="6.0" class="wow_spe <%if(tabRecrut[6][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_prot.gif"></td>
+                                                                <td id="6.1" class="wow_spe <%if(tabRecrut[6][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_ret.gif"></td> 
+                                                                <td id="6.2" class="wow_spe <%if(tabRecrut[6][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_holy.gif"></td>
+                                                                <td id="6.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_priest">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_priest.png"></td>
+                                                                <td class="wow_spename">Priest</td>
+                                                                <td id="7.0" class="wow_spe <%if(tabRecrut[7][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_shadow.gif"></td>
+                                                                <td id="7.1" class="wow_spe <%if(tabRecrut[7][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_holy.gif"></td>
+                                                                <td id="7.2" class="wow_spe <%if(tabRecrut[7][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_disci.gif"></td>
+                                                                <td id="7.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_rogue">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_rogue.png"></td>
+                                                                <td class="wow_spename">Rogue</td>
+                                                                <td id="8.0" class="wow_spe <%if(tabRecrut[8][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_assa.gif"></td>
+                                                                <td id="8.1" class="wow_spe <%if(tabRecrut[8][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_combat.gif"></td>  
+                                                                <td id="8.2" class="wow_spe <%if(tabRecrut[8][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_sub.gif"></td>
+                                                                <td id="8.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_shaman">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_sham.png"></td>
+                                                                <td class="wow_spename">Shaman</td>
+                                                                <td id="9.0" class="wow_spe <%if(tabRecrut[9][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_amelio.gif"></td>
+                                                                <td id="9.1" class="wow_spe <%if(tabRecrut[9][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_elem.gif"></td>
+                                                                <td id="9.2" class="wow_spe <%if(tabRecrut[9][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_restau.gif"></td>
+                                                                <td id="9.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_warlock">
+                                                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_warlock.png"></td>
+                                                                <td class="wow_spename">Warlock</td>
+                                                                <td id="10.0" class="wow_spe <%if(tabRecrut[10][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_affli.gif"></td>
+                                                                <td id="10.1" class="wow_spe <%if(tabRecrut[10][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_demono.gif"></td> 
+                                                                <td id="10.2" class="wow_spe <%if(tabRecrut[10][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_destru.gif"></td>
+                                                                <td id="10.3"></td>
+                                                            </tr>
+                                                            <tr id="recrut_warrior">
+                                                                <td class="wow_class bottom_class"><img src="/onePage/assets/img/class_icon/_war.png"></td>
+                                                                <td class="wow_spename bottom_class">Warrior</td>
+                                                                <td id="11.0" class="wow_spe <%if(tabRecrut[11][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_prot.gif"></td>
+                                                                <td id="11.1" class="wow_spe <%if(tabRecrut[11][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_fury.gif"></td> 
+                                                                <td id="11.2" class="wow_spe <%if(tabRecrut[11][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_arms.gif"></td>
+                                                                <td id="11.3"></td>
+                                                            </tr>                                       
+                                                        </tbody>
+                                                    </table>
+                                                <% } %>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END OF TAB 3 -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <% include partials/_miscjs %>
+    
+    <script>
+        $("#userSelectMain").on("change", function(){
+            var mySelect = $('#charSelectMain').empty();
+            var userSelected = $("#userSelectMain").val();
+            var charList = getChars(userSelected);
+            if((Object.keys(charList).length) > 0){ //count of char's key
+                mySelect.prop("disabled", false);
+                $.each(charList, function(val, text) {
+                    mySelect.append($('<option></option>').val(val).html(text));
+                });
+            }else{
+                mySelect.prop("disabled", true);
+            }
+        });
+        
+        function getChars(user_id){
+            var chars = <%- JSON.stringify(chars)%>;
+            console.log(chars);
+            var ret = new Object();
+           
+            $.each(chars, function(key, chara){
+                if(chara._id_user === user_id && chara.lvl >= 100){
+                    console.log(key + " : " + chara.name);
+                    if(chara.main){
+                        ret[chara._id] = "Main : " + chara.name + " (" + chara.ilvl + ")" ;
+                    }else{
+                        ret[chara._id] = chara.name + " (" + chara.ilvl + ")" ;
+                    }
+                }
+            })
+            return ret;
+        }
+    </script>
+    
+    <script>
+        jQuery(document).ready(function($) {
+            $("td.wow_spe").click(function(e){
+                id = $(this).attr("id");
+                $(this).toggleClass("opa30");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/recrutement",
+                    data: {
+                        class : id
+                    },
+                    success: function(data){}
+                });
+            });
+            return false;
+        });
+    </script>
+    
+
+</body>
+
+</html>

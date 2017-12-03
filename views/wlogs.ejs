@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="animated fadeInRightBig">
+                    <h3 class="font-bold"></h3>
+                    <div class="middle-box spinner">
+                        <center><b>Waiting for Warcraft logs...</b></center><br/><br/>
+                        <div class="sk-spinner sk-spinner-cube-grid">
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                            <div class="sk-cube"></div>
+                        </div>
+                    </div>
+                    <div id="container-logs"></div>
+                    
+                    <br/><br/>
+
+                </div>
+            </div>
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/plugins/moment/moment.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <%- include partials/_miscjs %>
+    
+    <script>
+        //pseudo -> response text / status / jqXHR
+        var publicKey = "<%=wlogsPublicKey%>";
+        var baseUrl = "https://www.warcraftlogs.com/v1/reports";
+        
+        $.when( getWlogs(baseUrl+"/user/Sylkk?api_key="+publicKey), 
+                getWlogs(baseUrl+"/user/Radious?api_key="+publicKey), 
+                getWlogs(baseUrl+"/guild/Danse%20Avec%20Les%20L%C3%B8%C3%B8ts/Ysondre/EU?api_key="+publicKey))
+        .done(function (sylkk, radious, guild){
+                   
+            var logs = new Array();
+            if(sylkk[1] === "success")
+                logs = logs.concat(JSON.parse(sylkk[0]));  
+               
+            if(radious[1] === "success")
+                logs = logs.concat(JSON.parse(radious[0]));   
+            
+            if(guild[1] === "success")
+                logs = logs.concat(JSON.parse(guild[0]));
+
+            //sort by date start
+            logs.sort(function(a, b){
+               if(a.start > b.start)
+                   return -1;
+               if(a.start < b.start)
+                   return 1;
+               return 0;
+            });
+            
+            //id, owner, title, zone, start, end
+            for(var key in logs){
+                getTemplateLogs(logs[key]);//mise en forme
+            }
+            
+            $(".spinner").addClass("hide");
+        });
+        
+        function getTemplateLogs(log){
+            
+            if(!log){
+                return false;
+            }
+
+            var label = "primary";
+            switch(log.owner){
+                case "Sylkk":   label="label-druid";
+                    break;
+                case "Radious": label="label-mage";
+                    break;   
+                case "Faorel":  label="label-dk";
+                    break;
+                case "Neechan": label="label-monk";
+                    break;
+            }
+            moment.locale("fr");
+            var duree = log.end - log.start;
+
+            var myDiv = document.getElementById("container-logs");//container
+
+            var a = document.createElement("a");
+            a.href = "https://www.warcraftlogs.com/reports/" + log.id;
+            a.className += " list-group-item";
+            a.target = "_blank";
+
+            var table = document.createElement("table");
+
+            var tr = document.createElement("tr");
+            table.appendChild(tr);
+
+            for(var i=0; i<4; i++){//#columns
+                var td = document.createElement("td");
+                switch(i){
+                    case 0: 
+                        td.style.width = "400px";
+                        var b = document.createElement("b");
+                        textTD = document.createTextNode(log.title);
+                        b.appendChild(textTD);
+                        td.appendChild(b);
+                        break;
+                    case 1: 
+                        td.style.width = "100px";
+                        var span = document.createElement("span");
+                        span.className += " label";
+                        span.className += " "+label;
+                        textTD = document.createTextNode(log.owner);
+                        span.appendChild(textTD);
+                        td.appendChild(span);
+                        break;
+                    case 2: 
+                        td.style.width = "250px";
+                        textTD = document.createTextNode(moment(log.start).format("dddd DD MMM YYYY"));
+                        td.appendChild(textTD);
+                        break;
+                    case 3: 
+                        td.style.width = "";
+                        var small = document.createElement("small");
+                        textTD = document.createTextNode("durée: "+ moment(duree).format("HH:mm:ss"));
+                        small.appendChild(textTD);
+                        td.appendChild(small);
+                        break;
+                }
+                tr.appendChild(td);
+            }
+            a.appendChild(table);
+            myDiv.appendChild(a);
+        }
+
+        function getWlogs(urlWlogs){
+            return $.ajax({ 
+                url: urlWlogs,
+                type: 'GET',
+                dataType: 'html'
+            }).done(function(data) {
+                //data ok
+            }).fail(function() {
+                console.log("Something went wrong!");//gestion errors
+            });
+        }
+    </script>
+</body>
+
+</html>

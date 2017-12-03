@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %></strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-sm-8">
+                    <div class="title-action">
+                        
+                        <!-- main char -->
+                        <%  
+                            var tabChar = new Array(); 
+                            var main;
+                            chars.forEach(function(chara){
+                                if(chara.main){main = chara;}
+                                else{tabChar.push(chara);}
+                            })
+                        %>
+                        <% if(main){ %>
+                        <div class="btn-group">
+                           
+                            <button data-toggle="dropdown" id="header_main" class="btn btn-white dropdown-toggle">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i> 
+                                Main : <img src="<%=main ? main.getClassIcon() : ""%>" width="20" height="20"/>
+                                <span style="color:<%=main ? main.getClassColor(): ""%>"><b><%= main ? main.name : "Select Main" %></b></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <% for(var i=0; i< tabChar.length; i++){%>   
+                                <li>
+                                    <a href="/profile/<%=tabChar[i].realm%>/<%=tabChar[i].name%>" style="color:<%=tabChar[i].getClassColor()%>">
+                                        <img src="<%=tabChar[i].getClassIcon()%>" width="20" height="20"/> 
+                                        <%= tabChar[i].name %>
+                                    </a>
+                                </li> 
+                            <% } %>    
+                            </ul>
+                        </div>
+                        <% } %>
+                        <!-- add char -->
+                        <button type="" id="header_addChar" class="btn btn-white"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Char</button>
+                        
+                        <!-- update all -->
+                        <button name="all_<%= user._id %>" type="submit" class="btn btn-white">
+                            <i class="fa fa-refresh"></i>
+                            <span class="bold">Update All</span>
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                
+                <%  var main;
+                    chars.forEach(function(chara){
+                        if(chara.main)
+                            {main = chara;}
+                    })
+                %>
+                
+                <% if(chars.length == 0){%>
+                    <div class="alert alert-info alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button"><i class="fa fa-arrow-up"></i></button>
+                        Vous pouvez ajouter un ou des characteres grâce au bouton en haut a droite <b>Add Char</b>. Votre "Main" vous sera attribué à l'aide d'un officier.
+                    </div>
+                <% } %>
+                
+                <% if(chars.length > 0 && !main){%>
+                    <div class="alert alert-info alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>
+                        Veuillez contacter un officier afin de choisir votre main parmis vos different perso. Il apparaitra sur le site comme votre personnage principal.
+                    </div>
+                <% } %>
+                
+                
+                
+                <% if (Object(errors).length > 0){ %>
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <%= errors ? errors : ""%>
+                    </div>
+                <% } %>
+                
+                <% if (Object(messages).length > 0){ %>
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <%= messages ? messages : ""%>
+                    </div>
+                <% } %>
+                
+                <!-- AddChar Form -->
+                <div id="addCharForm" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Add character<small> &nbsp (Only char lvl 10 or more && French Realms)</small></h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Name" id="addChar_name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control input-small" name="realm" id="addChar_realm">
+                                        <% var realmsListArr = _realmsList.split(",");
+                                           for(var i=0; i<realmsListArr.length; i++){
+                                        %>    
+                                        <option><%= realmsListArr[i];%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                                <div class="form-group pull-right">
+                                    <button class="btn btn-white" id="addChar_submit" type=""><i class="fa fa-user-plus" aria-hidden="true"></i> Add Char</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF AddChar Form -->
+                
+                <!-- Chars list -->
+                <% var accountAP = 0; var realmTMP = ""%>
+                <% if(chars.length > 0){ %>
+                        <% chars.forEach(function(chara){ %>
+                            <% if (chara.realm != realmTMP){ %>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:30px;"></th>
+                                            <th style="width:300px;"><%= chara.realm %></th>
+                                            <th style="width:100px;" class="ilvl" title="sac (equipped)">ilvl</th>
+                                            <th style="width:150px;">Progression <small>(<%=_maxItemLvl%>.i)</small></th>
+                                            <th style="width:150px;" class="artefactPower">Artefact Power <small>(<%=_targetAPPoint%>)</small></th>
+                                            <th style="min-width:215px;">&nbsp&nbsp Professions</th>
+                                            <th style="width:150px;">Last Played</th>
+                                            <th style="width:165px;">Update</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                <% realmTMP = chara.realm; %>
+                            <% } %> 
+                            <% if(chara.artefactPower) { accountAP += chara.artefactPower; }%>
+                        <tr>
+                            <!-- Icone -->
+                            <td>
+                                <a href="http://eu.battle.net/wow/en/character/<%=chara.realm%>/<%=chara.name%>/advanced">
+                                    <img alt="image" class="bordered" src="<%=chara.getCharIcon()%>" width="24">
+                                </a>
+                            </td>
+                            <!-- Label + name -->
+                            <td>
+                                <% if(chara.main){%>
+                                <span class="label label-success">main</span>
+                                <% } %>
+                                
+                                <img src="<%=chara.getClassIcon() %>" class="" width="20" height="20"/>
+                                <b><a href="/profile/<%= chara.realm %>/<%= chara.name %>">
+                                    <span name="<%= chara._id %>" style="color:<%=chara.getClassColor()%>"><%= chara.name %></span>
+                                </a></b>
+                            </td>
+                            <!-- Item level -->
+                            <td>
+                                <span class="profileIlvl">
+                                    <b><% if(chara.lvl >= 110){%><%= chara.ilvl%><%}else{%>lvl.<%=chara.lvl%><%} %></b>
+                                </span> <small><%-" (" + chara.ilvle + ")"%></small>
+                            </td>
+                            <!-- Progression -->
+                            <% var percent = Math.round(((chara.ilvl-800)*100)/(_maxItemLvl-800)); %>
+                            <% if(percent<0) percent = 0;%>
+                            <td class="ilvlCompletion" title="<%=percent%>% (<%=chara.ilvl%>) for 800.i to <%=_maxItemLvl%>.i">
+                                <div>
+                                    <small><span>Status :</span></small>
+                                    <div class="stat-percent"><%=percent%>%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: <%=percent%>%;" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- Artefact Power -->
+                            <% var percent = Math.round(((chara.artefactPower)*100)/_maxAP); %>
+                            <% if(chara.artefactPower){ var AP = numberWithSep(chara.artefactPower);}else{var AP = 0;}%>
+                            <% if(percent<0 || !percent) percent = 0;%>
+                            <td class="ilvlCompletion" title="<%=percent%>% for <%=_targetAPPoint%> Pts (<%= AP %>).">
+                                <div>
+                                    <small><span>Status :</span></small>
+                                    <div class="stat-percent"><%=percent%>%</div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: <%=percent%>%;" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- Professions -->
+                            <td>
+                                <% for(var i=0; i< chara.getProfessions().length;i++){ %>
+                                    &nbsp&nbsp
+                                    <span class="profileProf listing-roster-items">
+                                        <img src="<%= chara.getProfessionsIcon(chara.getProfessions()[i].icon) %>" width="20" height="20" class="profIcon bordered" title="<%=chara.getProfessions()[i].name%>"/>
+                                        <% if(chara.getProfessions()[i].rank >= chara.getProfessions()[i].max){ %><b><% } %>
+                                            <%= chara.getProfessions()[i].rank + " / " + chara.getProfessions()[i].max %>
+                                        <% if(chara.getProfessions()[i].rank >= chara.getProfessions()[i].max){ %></b><% } %>
+                                    </span>&nbsp
+                                <% } %>
+                            </td>
+                            <!-- Last Played -->
+                            <td>
+                                <small><%= moment(chara.lastModified).fromNow() %></small>
+                            </td>
+                            <!-- Update/delete button -->
+                            <td>
+                                <div class="btn-group">
+                                    <button name="update_<%= chara._id %>" class="btn btn-xs btn-white btn-outline btn-bitbucket">
+                                        <i class="fa fa-refresh"></i>
+                                        <span class="bold"><%= moment(chara.lastUpdated).fromNow() %></span>
+                                    </button>
+                                    <button name="del_<%= chara._id %>" class="btn btn-xs btn-danger btn-outline">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <% } %>
+                <!-- END OF Chars list -->
+
+            </div>
+            <!-- END CONTENT BAR -->
+            
+            <%  
+                function numberWithSep(x){
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
+            %>
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+            
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <%- include partials/_miscjs %>
+    
+    <script>
+        $(".profIcon").tooltip({
+            container: "body",
+            placement: "top",
+            html: true
+        });
+        $(".ilvlCompletion").tooltip({
+            container: "body",
+            placement: "left",
+            html: true
+        });
+        $(".ilvl").tooltip({
+            container: "body",
+            placement: "top",
+            html: true
+        });
+        $(".artefactPower").tooltip({
+            container: "body",
+            placement: "top",
+            html: true,
+            title: "Total AP : <%= numberWithSep(accountAP); %>"
+        });
+    </script>
+    
+    <script>
+        $('#addCharForm').hide();
+        $('#header_addChar').click(function(){
+            $('#addCharForm').toggle();
+        });
+    </script>
+    
+    <script>
+        $("#addChar_submit").click(function(){
+            var charName  = $("#addChar_name").val();
+            var charRealm = $("#addChar_realm option:selected").text();
+            
+            swal({
+                title: "Ajout de personnage",
+                html: true,
+                text: "Vous allez tenter d'ajouter le personnage <<b>"+charName+"-"+charRealm+"</b>> sur votre compte.",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#23c6c8",
+                confirmButtonText: "Oui, ajoutez le!",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+            }, 
+            function(isConfirm){
+                if(isConfirm){
+                    swal("Ajouté", "Votre personnage va être rajouté s'il existe", "success");
+                    var post = "/profile/addChar";
+                    
+                    $.post(post,{
+                        data: {name: charName, realm: charRealm},
+                        done: function(data){
+                            console.log("Request for addChar : " + data);
+                        }
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                }else{
+                    swal("Annulé", "Annulation de l'ajout de personnage", "error");
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        $("button[name^='del_']").click(function(){
+            var charInfos = $(this).attr("name").split("_")[1];
+            
+            swal({
+                title: "Are you serious ?!",
+                text: "Vous allez supprimer ce personnage de ce compte.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Oui, supprimez le!",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+            }, 
+            function (isConfirm) {
+                if(isConfirm){
+                    swal("Confirmé!", "Votre personnage va être supprimé", "success");
+                    var post = "/profile/delete";
+
+                    $.post(post, { 
+                        data: charInfos, 
+                        done: function(data){
+                            console.log("Request for update : "+charInfos);
+                        }   
+                    });
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                }else{
+                    swal("Annulé","Votre personnage sera conservé :)", "error");
+                }
+            });
+        });
+    </script>
+
+    
+    
+    <script>
+        $("button[name^='update_'], button[name^='all_']").click(function(){
+            var charInfos = $(this).attr("name").split("_")[1];
+            if((this.name).indexOf("all_") !== -1){
+                var post = "/profile/updateAll";
+            }else{
+                var post = "/profile/update";
+            }
+            
+            $.post(post, { 
+                data: charInfos, 
+                done: function(data){
+                    console.log("Request for update : "+charInfos);
+                }   
+            });
+            $(this).children("i").addClass("fa fa-refresh").toggleClass("fa-spin");
+            $(this).children("span").html("Processing");
+            this.disabled = true;
+            
+            $(this).delay(1500).queue(function(){//delay only for animation, so custom function
+                $(this).children("i").removeClass("fa-refresh fa-spin").addClass("fa-check");
+                $(this).children("span").html("request sent");
+            });
+            
+            /*
+            $(this).html("<i class='fa fa-refresh fa-spin'></i> Request sent").delay(1500).queue(function(){//delay only for animation, so custom function
+                $(this).children("i").removeClass("fa-refresh fa-spin").addClass("fa-check");
+            });
+            */
+        });
+    </script>
+
+
+</body>
+
+</html>

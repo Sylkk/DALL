@@ -1,0 +1,59 @@
+{
+    "Dall": {
+        "db": "__ENV__",
+	"es":{
+		"host": "__ENV__",
+		"port": "__ENV__"
+        },
+        "registerCode": "__ENV__"
+    },
+    "Cookie": {
+        "parser":{
+            "secret": "__ENV__"
+        },
+        "session":{
+            "secret1": "__ENV__",
+            "secret2": "__ENV__"
+        }
+    },
+    "JobCRON":{
+        "mainChar": "0 */30 * * * *",
+        "rerollChar": ""
+    },
+    "Mail":{
+        "service": "__ENV__",
+        "user": "__ENV__",
+        "pass": "__ENV__"
+    },
+    "Bnet": {
+        "apiKey": "__ENV__",
+        "fields" : "stats,items,feed,professions,reputation,audit,titles,statistics,achievements",
+        "allFields": "stats,items,feed,professions,reputation,audit,progression,statistics,quest,achievements,auction,abilities,species,realm_leaderboard,region_leaderboard,team,character,item_set,leaderboards,realmstatus,battlegroups,achievements,item_classes,talents,pet_types",
+        "guildFields": "guild,guild_rewards,guild_perks,guild_achievements",
+        "dataFields": "item,recipe,spell,races,classes"
+    },
+    "Wow":{
+        "realmsList": "Ysondre,Arak-arahm,Arathi,Archimonde,Chants éternels,Cho’gall,Confrérie du Thorium,Conseil des Ombres,Culte de la Rive noire,Dalaran,Drek'Thar,Eitrigg,Eldre'Thalas,Elune,Garona,Hyjal,Illidan,Kael'thas,Khaz Modan,Kirin Tor,Krasus,La Croisade écarlate,Les Clairvoyants,Les Sentinelles,Marécage de Zangar,Medivh,Naxxramas,Ner’zhul,Rashgarroth,Sargeras,Sinstralis,Temple noir,Throk'Feroth,Uldaman,Varimathras,Vol'jin",
+        "maxAchievPts":"30000",
+        "maxItemLevel":"957",
+        "maxAPConcordance":"2228766330",
+        "maxAP":"943376766330",
+        "targetAPPoint":"75"
+    },
+    "Wlogs":{
+      "publicKey": "__ENV__",
+      "privateKey": "__ENV__"
+    },
+    "ACL":{
+        "noob":         "1",
+        "ami_du_loot":  "2",
+        "apply":        "3",
+        "member":       "4",
+        "raider":       "5",
+        "intendant":    "6",
+        "officer":      "7",
+        "sous_admin":   "8",
+        "admin":        "9",
+        "webmaster":    "10"
+    }
+}

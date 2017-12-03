@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %> </strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+    
+            <br/><br/>
+
+            <%# Object.keys(applys).length%>
+            
+            <div class="panel-group payments-method animated fadeInRight" id="accordion">
+            
+            <% var i=0; %>
+            <% applys.forEach(function(apply){%>
+                <%        if(apply.status === "ACCEPTED"){ %>
+                <div class="panel panel-success">
+                <% } else if(apply.status === "REFUSED"){ %>
+                <div class="panel panel-danger">
+                <% } else if(apply.status === "END"){%>  
+                <div class="panel panel-primary">
+                <% } else { %>
+                <div class="panel panel-default">
+                <% } %>    
+                    <div class="panel-heading">
+                        <div class="pull-right small font-bold">
+                            <%= moment(apply.dateStart).fromNow() %>
+                        </div>
+                        <h5 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=i%>" class="collapsed">
+                                <div class="col-md-3">
+                                    <img src="<%= apply.getClassIcon() %>" height="20" width="20">
+                                    <img src="<%= apply.getRoleIcon() %>" height="20" width="20" class="icone_role">
+                                    <%= apply.name + " - " + apply.realm  %>
+                                </div>
+                                <span class="small infos-apply">
+                                    <strong><%= apply.ilvl  %></strong> ilvl - 
+                                    <% if(apply.progression){ // OLD APPLY - before change progression per raid%> 
+                                        <strong><%= apply.progression %></strong> HFC - 
+                                    <% } %>
+                                    
+                                    <% if(apply.progressHFC){ %>
+                                        <strong><%= apply.progressHFC %></strong> HFC -
+                                    <% } %>
+                                    <% if(apply.progressEN){ %>
+                                        <strong><%= apply.progressEN %></strong> EN -
+                                    <% } %>
+                                    <% if(apply.progressTOV){ %>
+                                        <strong><%= apply.progressTOV %></strong> ToV -
+                                    <% } %>
+                                    <% if(apply.progressNH){ %>
+                                        <strong><%= apply.progressNH %></strong> NH -
+                                    <% } %>
+                                    <% if(apply.progressToS){ %>
+                                        <strong><%= apply.progressToS %></strong> ToS -
+                                    <% } %>
+                                    <% if(apply.progressArgus){ %>
+                                        <strong><%= apply.progressArgus %></strong> Antorus -
+                                    <% } %>
+                                    <strong><%= apply.achievPts %></strong> pts
+                                </span>
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse<%=i%>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12"><%= %>
+                                    <b>[<%= apply.dateStart.toUTCString() %>]</b>
+                                    
+                                    <% if(user && user.rank >= 6) { %>
+                                    <span class="pull-right"><b>[<%= apply.contactMail %>]</b></span>
+                                    <% } %>
+                                    
+                                    <center>
+                                        <b><h1>
+                                            <img src="<%= apply.getClassIcon() %>" height="36" width="36">
+                                            <%=apply.name%> - <%=apply.realm%>
+                                            <img src="<%= apply.getRoleIcon() %>" height="40" width="40" class="icone_role">
+                                        <h1></b>
+                                    </center>
+                                    
+                                    <% if(user && user.rank >= 6) { %>
+                                    <b>Battle Tag : </b>
+                                    <p class="apply"><%= apply.contactBTag %></p>
+                                    <% } %>
+
+                                    <b>Presentation : </b><br/>
+                                    <p class="apply"><%= apply.content[0].presentation %></p>
+
+                                    <p class="apply"><a href='<%= apply.content[0].lien_armu %>'><%= apply.content[0].lien_armu %></a></p>
+
+                                    
+                                    <b>Temps de jeu : </b><br/>
+                                    <p class="apply"><%= apply.content[0].date_play %></p>
+
+                                    <b>Experience PVE : </b><br/>
+                                    <p class="apply"><%= apply.content[0].xp_pve %></p>
+                                    
+                                    <b>Motivation : </b><br/>
+                                    <p class="apply"><%= apply.content[0].motivation %></p>
+                                    
+                                    <b>Anciennes Guildes : </b><br/>
+                                    <p class="apply"><%= apply.content[0].old_guild %></p>
+
+                                    <b>Interface : </b><br/>
+                                    <p class="apply"><%= apply.content[0].interface %></p>
+
+                                    <b>TheoryCraft : </b><br/>
+                                    <p class="apply"><%= apply.content[0].tc %></p>
+
+                                    <b>Rerolls : </b><br/>
+                                    <p class="apply"><%= apply.content[0].reroll %></p>
+                                    <br/>
+
+                                    <% if(user.rank >= 6){ %>
+                                    
+                                        <% if(apply.messages.length > 0){ %>
+                                            <% for(var j=0; j < apply.messages.length; j++){ %>
+                                                <div class="alert alert-info">
+                                                    <%= apply.messages[j].message %>.
+                                                    <span class="pull-right">by <strong><%= apply.messages[j].sender %></strong></span>
+                                                    <br/><i><small><%= moment(apply.messages[j].date).fromNow() %></small></i>
+                                                </div>
+                                            <% } %>
+                                        <% } %>
+
+                                    <% } %>
+                                    
+                                    <% if(user.rank >= 7){ %>
+
+                                        <form action="/applys/status" method="POST" id="formApplyStatus_<%=i%>">
+                                            <input name="applyId" value="<%=apply._id%>" id="inputApplyId_<%=i%>" hidden/>
+                                            <input name="status" value="" id="inputStatusValue_<%=i%>" hidden/>
+
+                                            <%if(apply.status === "PENDING") {%>
+                                                <button type="submit" class="btn btn-outline btn-primary" name="ACCEPTED" id="submitAcceptedStatus_<%=i%>" onclick="proceed(this.name, <%=i%>);">Accepter</button>
+                                                <button type="submit" class="btn btn-outline btn-danger" name="REFUSED" id="submitRefusedStatus_<%=i%>" onclick="proceed(this.name, <%=i%>);">Refuser</button>
+                                            <% }else if(apply.status === "ACCEPTED"){ %>
+                                                <button type="submit" class="btn btn-outline btn-success" name="END" id="submitEndStatus_<%=i%>" onclick="proceed(this.name, <%=i%>);">Passer Membre</button>
+                                            <% } %>    
+                                                <button type="button" class="btn btn-outline btn-info" name="message||to||<%=apply.realm%>||<%=apply.name%>||<%=apply.contactMail%>" id="sendApplyMessage_<%=i%>" onclick="proceed(this.name, <%=i%>);">Message</button>
+                                            <% if(user.rank >= 9){ %>
+                                                <button type="submit" class="btn btn-outline btn-warning pull-right" name="PENDING" id="submitPendingStatus_<%=i%>" onclick="proceed(this.name, <%=i%>);">Pending</button>
+                                                <button type="button" class="btn btn-outline btn-danger pull-right" name="delete||<%=apply._id%>" id="submitDelete_<%=i%>" onclick="proceed(this.name, <%=i%>);">Delete</button>
+                                            <% } %>
+
+                                        </form>
+                                    <% } %>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% i=i+1; %>
+            <% }) %>
+
+            </div>
+            <br/><br/> 
+
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- CDN SweetAlert2 -->
+    <!-- <script src="https://cdn.jsdelivr.net/sweetalert2/4.1.0/sweetalert2.min.js"></script> -->
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <%- include partials/_miscjs %>
+    
+    
+    <% if(user.rank >= 7){ %>
+    <script>
+        function proceed(button_name, i){
+            document.getElementById("inputStatusValue_"+i).value = button_name;
+        }
+        
+        //search for buttons status
+        var buttons = document.querySelectorAll("form[id^='formApplyStatus_']");
+        //for each buttons, addEventListener on submit
+        for(var i=0; i<buttons.length; i++){
+            var self = buttons[i];
+            
+            self.addEventListener('submit', function(e) {
+                var form = this;
+                console.log(form);
+                var id = this.id ;
+                e.preventDefault();
+                swal({
+                    title: "Etez-vous sûr",
+                    text: "Vous ne pourrez pas revenir en arriere",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Oui, je suis sûr',
+                    cancelButtonText: "Non, annulez",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: 'Changement de statut!',
+                            text: "L'apply recevra un email d'informations",
+                            type: 'success'
+                        }, function() {
+                            form.submit();
+                        });
+
+                    } else {
+                        swal("Annulé", "Rien ne se passera", "error");
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        $("button[name^='delete||']").click(function(){
+            var id = $(this).prop('name').split('||')[1];
+            swal({
+                    title: "Etez-vous sûr du DELETE",
+                    text: "Vous ne pourrez pas revenir en arriere",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Oui, je suis sûr',
+                    cancelButtonText: "Non, annulez",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: 'Apply DELETE',
+                            text: "L'apply va etre supprimé",
+                            type: 'success'
+                        }, function() {
+                            var post = "/applys/delete";
+                            $.post(post,{
+                                data: {
+                                    applyId: id
+                                      },
+                                done: function(data){
+                                    location.reload();
+                                }
+                            });
+                        });
+
+                    } else {
+                        swal("Annulé", "Rien ne se passera", "error");
+                    }
+                });
+        });
+    </script>
+    <script>
+        $("button[name^='message||to||']").click(function(){
+            var name     = $(this).prop('name').split('||')[3];
+            var realm    = $(this).prop('name').split('||')[2];
+            var mail     = $(this).prop('name').split('||')[4];
+            var sender   = "<%= user.name %>";
+
+            swal({   
+                title: "<small>Message pour</small> <br/>" + name + " - " + realm + "",   
+                html: true,
+                type: "input",   
+                showCancelButton: true,   
+                closeOnConfirm: false,   
+                animation: "slide-from-top",   
+                inputPlaceholder: "Le message" 
+            }, function(inputValue){   
+                if (inputValue === false) 
+                    return false;      
+                if (inputValue === ""){     
+                    swal.showInputError("Le message ne peut être vide !");     
+                    return false   
+                }      
+                
+                var post = "/applys/sendMessage";
+                $.post(post,{
+                    data: {
+                        mailContact: mail, 
+                        message: inputValue, 
+                        pseudo: name, 
+                        realm: realm,
+                        sender: sender},
+                    done: function(data){
+                    }
+                });
+                
+                swal("Envoyé !", "[ " + inputValue + " ]", "success"); 
+            });
+        });
+    </script>
+    <% } %>
+
+
+</body>
+
+</html>

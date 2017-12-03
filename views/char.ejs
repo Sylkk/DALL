@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+<%- include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <%- include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <%- include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>Danse avec les Loots - TOOLS</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li>
+                            <a href="/profile">Profile</a>
+                        </li>
+                        <li class="active">
+                            <a href="/profile<%=locals.current_path%>"><strong><%= title %></strong></a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-sm-8">
+                    <div class="title-action">    
+                        <!-- update -->
+                        <button name="update_<%= chara._id %>" type="submit" class="btn btn-white">
+                            <i class="fa fa-refresh"></i>
+                            <span class="bold">Update</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+            
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content  animated fadeInRight">
+            <% if (chara){ %>
+                <!-- ROW HEADER CONTENT -->
+                <div class="row m-b-lg m-t-lg">
+                    <div class="col-md-6">
+                        <div class="profile-image">
+                            <a href="http://eu.battle.net/wow/en/character/<%-chara.realm%>/<%-chara.name%>/advanced">
+                                <img src="<%=chara.getCharIcon()%>" id="profile-icon-circle" class="img-circle circle-border m-b-md" alt="profile"  title="lien armory">
+                            </a>
+                        </div>
+                        <div class="profile-info">
+                            <div class="">
+                                <div>
+                                    <h2 class="no-margins">
+                                        <%=chara.name%> <small><%=chara.getTitle().replace("%s", "")%></small>
+                                    </h2>
+                                    <h4><%=chara.realm%></h4>
+                                    <small>
+                                        <%=chara.lvl%> - <%=chara.getClassName()%> . <b><%=chara.role%></b><br/>
+                                        Dernière connection : <%=moment(chara.lastModified).fromNow() %>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <table class="table small m-b-xs">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span class="profileStats" title="Item lvl equipped : <%=chara.ilvle%>">
+                                    <strong><%=chara.ilvl%></strong> Item level<span>
+                                </td>
+                                <td>
+                                    <span class="profileStats" title="<%=Math.round(chara.data.stats.crit*100)/100%> %">
+                                    <strong><%=chara.data.stats.critRating%></strong> Critical</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong><%=chara.achievPts%></strong> Achievements
+                                </td>
+                                <td>
+                                    <span class="profileStats" title="<%=Math.round(chara.data.stats.haste*100)/100%> %">
+                                    <strong><%=chara.data.stats.hasteRating%></strong> Haste</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="profileStats" title="Damage +<%=Math.round(chara.data.stats.versatilityDamageDoneBonus*100)/100%> %<br/>
+                                                                      Healing +<%=Math.round(chara.data.stats.versatilityHealingDoneBonus*100)/100%> %<br/>
+                                                                      Reduce +<%=Math.round(chara.data.stats.versatilityDamageTakenBonus*100)/100%> %<br/>">
+                                    <strong><%=chara.data.stats.versatility%></strong> Versatility</span>
+                                </td>
+                                <td>
+                                    <span class="profileStats" title="<%=Math.round(chara.data.stats.mastery*100)/100%> %">
+                                    <strong><%=chara.data.stats.masteryRating%></strong> Mastery</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        <small>Last update</small>
+                        <h2 class="no-margins"><%- moment(chara.lastUpdated).fromNow()%></h2>
+                    </div>
+                </div> 
+                <!-- END OF ROW HEADER CONTENT -->
+                
+                <!-- ROW IBOX -->
+                <div class="row">
+                    <!-- LEFT COLUMN -->
+                    <div class="col-lg-5">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>Actual GEAR (<%=chara.ilvle %>)</h3>
+                                
+                                <% var percentIlvl = Math.round(((chara.ilvl-800)*100)/(_maxItemLvl-800));%>
+                                <p class="small font-bold">
+                                    <span><i class="fa fa-circle text-<%=chara.isEnoughILvlForRaidCircleColor(chara.ilvle)%>"></i> Item Level max (<%=_maxItemLvl%>):</span>
+                                </p>
+                                <div class="progress m-b-sm">
+                                    <div style="width:<%=percentIlvl%>%;" class="progress-bar progress-bar-success"><%=percentIlvl%>%</div>
+                                </div>
+                                
+                                <br/>
+
+                                <% var items = chara.getListItemGear();%>
+                                <table class="listing-roster-items">
+                                    <tbody>
+                                    <% var totupgd = 0, totsocket = 0 %>
+                                    <%  for(var i in items){ %>
+                                            
+                                        <tr role="row">
+                                            <!-- item slot name -->
+                                            <td class="profile-items"><%=items[i]%></td>
+                                            
+                                            <!-- item level -->
+                                            <%  if(typeof chara.getItems()[items[i]] !== "undefined"){ %>
+                                                <% var item = chara.getItems()[items[i]]; %>
+                                            <td class=""><%= item.itemLevel%></td>
+                                            
+                                            <!-- upgrade -->
+                                            <td class="profile-items">
+                                                <small>
+                                                <% if(chara.getiUpgrade(item)){ %>+<% } %>
+                                                <%=chara.getiUpgrade(item)%>
+                                                </small>
+                                                <% if(chara.getiUpgrade(item)){ %>
+                                                    <% totupgd += chara.getiUpgrade(item)%>
+                                                <% } %>
+                                            </td>
+                                            
+                                            <!-- items list -->
+                                            <td class="profile-items">
+                                                <a href="//www.wowhead.com/item=<%=item.id%>" rel="<%=chara.getiWowHeadRel(item)%>" class="<%=chara.getiQuality(item)%>">
+                                                    <img src="http://media.blizzard.com/wow/icons/36/<%=item.icon%>.jpg" width="16" height="16"/>[<%=item.name%>]
+                                                 </a>
+                                            </td> 
+                                            
+                                            <!--socket -->
+                                            <td class="profile-items">
+                                                <% if(chara.getiSocket(item)){ %>
+                                                    <% if(chara.getiSocket(item) === "missing"){ %>
+                                                        <img src="/img/misc/socketEmpty.png" class="emptySocket" width="14" height="14" title="missing"/>
+                                                    <% } else{ %>
+                                                        <img src="/img/misc/socket.png" class="emptySocket" width="14" height="14" title="<%=chara.getiSocket(item)%>"/>
+                                                    <% } %>
+                                                <% } %>
+                                                <% if(chara.getiSocket(item)){ %>
+                                                    <% totsocket ++%>
+                                                <% } %>
+                                            </td>
+                                            
+                                            <!-- enchant -->
+                                            <td class="profile-items">
+                                                <% var enchantSlot = chara.getListItemEnchantSlot() %>
+                                                <% if( !(chara.getiEnchant(item)) && (enchantSlot.indexOf(items[i]) >= 0) ){ %>
+                                                    <img src="/img/misc/enchantEmpty.jpg" class="emptyEnchant" width="14" height="14" title="missing"/>
+                                                <% } %>
+                                                <% if(chara.getiEnchant(item)){ %> 
+                                                    <img src="/img/misc/enchant.jpg" class="emptyEnchant" width="14" height="14" title="<%-chara.getiEnchant(item)%>"/>
+                                                <% } %>
+                                            </td>
+                                            <!--<td class="profile-items"><%#chara.getiBonusLists(item)%></td>-->
+                                            <% } %>
+
+
+                                        </tr>
+                                    <% } %>
+                                        <tr role="row">
+                                            <td>&nbsp</td> 
+                                            <td></td> 
+                                            <td></td> 
+                                            <td></td> 
+                                            <td></td> 
+                                            <td></td> 
+                                        </tr>
+                                        <tr role="row">
+                                            <td class="profile-items"><b>Total</b></td>
+                                            <td class="profile-items"></td>
+                                            <td class="profile-items"><b>+<%=totupgd%></b></td>
+                                            <td class="profile-items"><b></b></td>
+                                            <td class="profile-items"><b><%=totsocket%></b></td>
+                                            <td class="profile-items"><b></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+ 
+                            </div>
+                        </div>
+                        
+                        <%if(user.rank >=10){ %>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>DUMP : Artefact</h3>
+                                <pre><%-JSON.stringify(chara.getItems().mainHand, null, 2)%></pre>
+                            </div>
+                        </div>
+                        <% } %>
+    
+                    </div>
+                    <!-- END OF LEFT COLUMN -->
+                    
+                    
+                    <!-- RIGHT COLUMN -->
+                    <%
+                        /*
+                            type: BOSSKILL
+                            timestamp
+                            achievement.title
+                            quantity
+
+                            type: LOOT
+                            timestamp
+                            bonusLists
+                            itemId
+                            context
+
+                            type: ACHIEVEMENT
+                            timestamp
+                            achievement.id
+                            achievement.title
+                            achievement.points
+
+                            type: CRITERIA
+                            timestamp
+                            achievement
+                            criteria
+                        */
+                        var tabBoss = new Array();
+                        var tabLoot = new Array();
+                        var tabAchievement = new Array();
+                        var feed = chara.data.feed;
+                        for(var i in feed){ %>
+                            <% if(feed[i].type === "BOSSKILL"){%>
+                               <% tabBoss.push(feed[i]); %>
+                            <% }else if(feed[i].type === "LOOT"){%>
+                                <% tabLoot.push(feed[i]); %>
+                            <% }else if(feed[i].type === "ACHIEVEMENT"){%>
+                                <% tabAchievement.push(feed[i]); %>
+                            <% } %>
+                        <% } %>
+
+                    <div class="col-lg-7">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Loots (<%=tabLoot.length%>)</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Boss Kill (<%=tabBoss.length%>)</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">Achievement (<%=tabAchievement.length%>)</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <strong><%if(user.rank >=10){%>(trackings des +ilvl pour LEGION via <code>bonusLists</code> et/ou <code>context</code> : +35 )<br/><br/><%}%></strong>
+                                        <table>
+                                            <% for(var i=0; i<tabLoot.length; i++){%>
+                                            <tr>
+                                                <%if(tabLoot[i].bonusLists){ %>
+                                                    <% var bonus = tabLoot[i].bonusLists.join(":");%>
+                                                <% } %>
+                                                <td class="profile-items">
+                                                    <%=moment(tabLoot[i].timestamp).fromNow()%> 
+                                                </td>
+                                                <td class="profile-items">
+                                                    received &nbsp<a href="//www.wowhead.com/item=<%=tabLoot[i].itemId%>" rel="<%=chara.getiWowHeadRel(tabLoot[i])%>" class="<%=chara.getiQuality(tabLoot[i])%>"><%=tabLoot[i].itemId%></a>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong></strong>
+                                        <table>
+                                            <% for(var i=0; i<tabBoss.length; i++){%>
+                                            <tr>
+                                                <td class="profile-items">
+                                                    <%=moment(tabBoss[i].timestamp).fromNow()%> 
+                                                </td>
+                                                <td class="profile-items">
+                                                    defeated <%=tabBoss[i].achievement.title%> <small><b>(x<%=tabBoss[i].quantity%>)</b></small>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong></strong>
+                                        <table>
+                                            <% for(var i=0; i<tabAchievement.length; i++){%>
+                                            <tr>                                            
+                                                <td class="profile-items">
+                                                    <%=moment(tabAchievement[i].timestamp).fromNow()%> 
+                                                </td>
+                                                <td class="profile-items">
+                                                    earned  &nbsp<a href="//www.wowhead.com/achievement=<%=tabAchievement[i].achievement.id%>" rel="" >[<%=tabAchievement[i].achievement.title%>]</a>
+                                                </td>
+                                            </tr>
+                                            <% } %> 
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>LEGION Reputations</h3>
+
+                                <% var tabReput = chara.getListReputLegion() %>
+                                <% for(var i in tabReput){ %>
+                                    <% var reput = chara.getReputation(tabReput[i]); %>
+                                        <% if(reput){ %>
+                                            <% 
+                                                var percent = Math.round((reput.value*100)/reput.max); 
+                                                if(reput.standing === 7)
+                                                    percent = 100;
+                                            %>
+                                
+                                            <p class="small font-bold">
+                                                <span><i class="fa fa-circle text-<%=chara.isFriendlyReputCircleColor(reput.standing)%>"></i> <%=reput.name%></span>
+                                            </p>
+                                            <div class="progress m-b-sm">
+                                                <div style="width:<%=percent%>%;" class="progress-bar progress-bar-<%=chara.getReputationBarColor(reput.standing)%>"><%=reput.value%> / <%=reput.max%> (<%=percent%>%)</div>
+                                            </div>
+                                            <%
+                                                var reputInfo="";
+                                                switch(tabReput[i]){
+                                                    case 2165: reputInfo="Earned by : Une fois 110 puis <strong>Quest & World Quest</strong> dans <strong>Argus</strong>."
+                                                        break;//Army of the Light
+                                                    case 2170: reputInfo="Earned by : Une fois 110 puis <strong>Quest & World Quest</strong> dans <strong>Argus</strong>."
+                                                        break;//Argussian Reach
+                                                    case 2045: reputInfo="Earned by : Une fois 110 puis <strong>Quest & World Quest</strong> dans <strong>Broken Shore</strong>."
+                                                        break;//Armies of LegionFall
+                                                    case 1859: reputInfo="Earned by : Une fois 110 puis <strong>Quest & World Quest</strong> dans <strong>Suramar</strong>."
+                                                        break;//The Nightfallen
+                                                    case 1948: reputInfo="Earned by : Une fois 110 puis <strong>World Quest</strong> (dans <strong>Stormheim</strong>)."
+                                                        break;//Valarjar
+                                                    case 1894: reputInfo="Earned by : Une fois 110 puis <strong>World Quest</strong> dans toute les zones."
+                                                        break;//The Wardens
+                                                    case 1883: reputInfo="Earned by : Une fois 110 puis <strong>World Quest</strong> (dans <strong>Val'sharah</strong>)."
+                                                        break;//Dreamweavers
+                                                    case 1828: reputInfo="Earned by : Une fois 110 puis <strong>World Quest</strong> (dans <strong>Highmountain</strong>)."
+                                                        break;//Highmountain Tribe
+                                                    case 1900: reputInfo="Earned by : Une fois 110 puis <strong>World Quest</strong> (dans <strong>Azsuna</strong>)."
+                                                        break;//Court of Farondis
+                                                }
+                                            %>
+                                            <small><%- reputInfo%></small>
+                                            <br/><br/>
+                                        <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <!-- 
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>DUMP : Loot 8</h3>
+                                <pre><%-JSON.stringify(tabLoot[8], null, 2)%></pre>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                    <!-- END OF RIGHT COLUMN -->
+                    
+                    
+                </div>
+                <!-- END OF ROW IBOX -->
+                
+                <!-- CHAR JSON -->
+                <% if(user.rank >=10){ %>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>DUMP : Char</h3>
+                                 <pre><%-JSON.stringify(chara, null, 2)%></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <!-- END OF CHAR JSON -->
+                
+                
+                
+            <% } %>
+
+
+            </div>
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <%- include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- WowHead ToolTip usage -->
+    <script src="http://static.wowhead.com/widgets/power.js" type="text/javascript"></script>
+    <script src="/js/wowhead_tooltips.js" type="text/javascript"></script>
+    
+    <%- include partials/_miscjs %>
+    
+    <script>
+        $(".profileStats").tooltip({
+            container: "body",
+            placement: "left",
+            html: true
+        });
+        $("#profile-icon-circle").tooltip({
+            container: "body",
+            placement: "top",
+            html: true
+        });
+        $(".emptySocket").tooltip({
+            container: "body",
+            placement: "top",
+            html: true
+        });
+        $(".emptyEnchant").tooltip({
+            container: "body",
+            placement: "right",
+            html: true
+        });
+    </script>
+    
+    <script>
+        $("button[name^='update_']").click(function(){
+            var charInfos = $(this).attr("name").split("_")[1];            
+            $.post("/profile/update", { 
+                data: charInfos, 
+                done: function(data){
+                    console.log("Request for updateAllChar : "+charInfos);
+                }   
+            });
+            $(this).children("i").addClass("fa fa-refresh").toggleClass("fa-spin");
+            $(this).children("span").html("Processing");
+            this.disabled = true;
+            $(this).delay(1500).queue(function(){//delay only for animation, so custom function
+                $(this).children("i").removeClass("fa-refresh fa-spin").addClass("fa-check");
+                $(this).children("span").html("request sent");
+            });
+        });
+    </script>
+
+</body>
+
+</html>

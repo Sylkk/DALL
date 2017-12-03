@@ -1,0 +1,154 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                
+                
+                <!-- Profile -->
+                <% if(user){ %>
+                    <div class="dropdown profile-element">
+                        <% if(user.icone){%>
+                        <span>
+                            <img alt="image" class="img-circle bordered" width="48" height="48" src="<%=user.getIconeMain()%>" />
+                        </span>
+                        <%} %>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs"> <strong class="font-bold"><%= user.name %></strong>
+                                </span>
+                                <span class="text-muted text-xs block">
+                                    Rank . <%= user.getRankName();%> <b class="caret"></b>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li>
+                                <a href="/settings">Settings</a>
+                            </li><!--
+                            <li>
+                                <a href="#">Messages</a>
+                            </li>-->
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                <% } %>
+                <!-- END of Profile -->
+                
+                <div class="logo-element">DALL</div>
+            </li>
+            
+            <!-- Home page -->
+            <li class="<% if(activePage.index){ %> active <% } %>">
+                <a href="/home"> 
+                    <i class="fa fa-home"></i>
+                    <span class="nav-label">Home</span>
+                </a>
+            </li>
+            
+            <!-- Infos page -->
+            <% if(user && user.rank >= 3) { %>
+                <li class="<% if (activePage.infos){ %> active <% } %>">
+                    <a href="/infos"> 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="nav-label">Infos</span><span class="label label-primary pull-right" >7.2</span>
+                    </a>
+                </li>
+            <% } %>
+
+            <!-- Applys page -->
+            <% if(user && user.rank >= 3) { %>
+                <li class="<% if (activePage.applys){ %> active <% } %>">
+                    <a href="/applys"> 
+                    <i class="fa fa-users"></i>
+                    <span class="nav-label">Applys</span><span class="label label-info pull-right" id="newApplyNumber"></span>
+                    </a>
+                </li>
+            <% } %>
+                
+            <!-- Roster page -->
+            <% if(user) { %>
+                <li class="<% if (activePage.roster){ %> active <% } %>">
+                    <a href="/roster"> 
+                    <i class="fa fa-table"></i>
+                    <span class="nav-label">Roster</span>
+                    </a>
+                </li>
+            <% } %>
+                
+            <!-- Profile page -->
+            <% if(user) { %>
+                <li class="<% if (activePage.profile){ %> active <% } %>">
+                    <a href="/profile"> 
+                    <i class="fa fa-user"></i>
+                    <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            <% } %>
+                
+            <!-- Wlogs page -->
+            <% if(user) { %>
+                <li class="<% if (activePage.wlogs){ %> active <% } %>">
+                    <a href="/wlogs"> 
+                    <i class="fa fa-bar-chart"></i>
+                    <span class="nav-label">Warcraft Logs</span>
+                    </a>
+                </li>
+            <% } %>
+
+            <!-- Weakaura page 
+            <% if(user) { %>
+                <li class="<% if (activePage.weakaura){ %> active <% } %>">
+                    <a href="/weakaura"> 
+                        <i class="fa fa-files-o"></i>
+                        <span class="nav-label">WeakAura</span>
+                    </a>
+                </li>
+            <% } %>
+                -->
+
+            <!-- Register page -->
+            <% if(!user) { %>
+                <li>
+                    <a href="/register"> 
+                        <i class="fa fa-arrow-circle-right"></i>
+                        <span class="nav-label">Register</span>
+                    </a>
+                </li>
+            <% } %>  
+
+            <!-- Admin page -->                
+            <% if(user && user.rank >= 7) { %>
+                <li class="<% if (activePage.admin || 
+                                  activePage.test_addApply || 
+                                  activePage.usersList ||
+                                  activePage.charsList){ %> active <% } %>">
+                    <a href="/admin">
+                        <i class="fa fa-shield"></i>
+                        <span class="nav-label">Admin</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="<% if (activePage.admin){ %> active <% } %>">
+                            <a href="/admin">Admin</a>
+                        </li>
+                        <% if(user && user.rank >= 10) { %>
+                        <li class="<% if (activePage.usersList){ %> active <% } %>">
+                            <a href="/users">Users List</a>
+                        </li>
+                        <li class="<% if (activePage.charsList){ %> active <% } %>">
+                            <a href="/chars">Chars List</a>
+                        </li>
+                        <li class="<% if (activePage.test_addApply){ %> active <% } %>">
+                            <a href="/test_addApply">- Test : add Apply</a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </li>
+            <% } %>
+
+        </ul>
+    </div>
+</nav>

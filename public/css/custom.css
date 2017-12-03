@@ -1,0 +1,230 @@
+/* APPLY **********************************************************************/
+    
+.apply{ 
+    white-space: pre-line; 
+}
+.infos-apply{
+    margin-left: 30px;
+}
+.payments-method .panel-heading {
+  padding: 10px;
+}
+
+.panel-success {
+  border-color: #d6e9c6;
+}
+.panel-success > .panel-heading {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.panel-danger {
+  border-color: #ebccd1;
+}
+.panel-danger > .panel-heading {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.panel-primary {
+  border-color: #bce8f1;
+}
+.panel-primary > .panel-heading {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.labeled-apply{
+    background-color: #19aa8d;
+    color: white;
+    padding: 5px;
+    margin-top: -28px;
+    opacity: 0.75;
+    width: max-content;
+    
+}
+
+/* HOME ***********************************************************************/
+.plusChar{
+    height: 84px;
+    width: 84px;
+}
+
+
+/* PROFILE ********************************************************************/
+
+.profileIlvl{
+    //font-size: 12px;
+    //margin-left: 16px;
+}
+.profileProf{
+    //margin-left: 16px;
+}
+.profile-items{
+    padding-right: 10px;
+}
+
+.bordered{
+    border: solid 1px black;
+}
+
+
+/* ROSTER  ********************************************************************/
+
+td.rosterToken{
+    width: 20px;
+}
+
+td.rosterMissing{
+    text-align: center;
+}
+
+#userSelectMain{
+    width:200px; 
+}
+
+#charSelectMain{
+    width:200px; 
+}
+
+#charSelectRole{
+    width:200px; 
+}
+
+#roleSelectRole{
+    width:200px; 
+}
+
+.listing-roster-items img{
+    color: black;
+    background-color: #444;
+    border-radius: 2px;
+    border: 1px solid;
+    box-shadow: 0px 1px 3px rgba(50, 50, 50, 0.75);
+}
+/*
+.listing-roster-items td:hover img{
+    -webkit-filter: brightness(150%);
+}
+*/
+
+.listing-roster-items img:hover{
+    -webkit-filter: brightness(150%);
+}
+
+.bossesIcone img{
+    height: 32px;
+    width: 64px;
+}
+
+.bossesIcone img:hover{
+    -webkit-filter: brightness(150%);
+}
+
+.itemLevelNote{
+    position: absolute;
+    margin-top: 14px;
+    margin-left: -8px;
+    color: white;
+    font-size: 70%;
+    text-shadow:    -1px 0    1px black,
+                    1px  0    1px black,
+                    0    -1px 1px black, 
+                    0    1px  1px black;   //h-pos v-pos (blur) (color); //trbl
+}
+
+/* LOGS ***********************************************************************/
+a.list-group-item:hover{
+    color: #555;
+    background-color: #FFFFFF;
+}
+
+/* SETTINGS *******************************************************************/
+.settings-item .switch{
+    float: right;
+}
+
+/* RECRUTEMENT ****************************************************************/
+
+.table-recrutement img{
+    width: 18px;
+    height: 18px; }
+
+.wow_spename{
+    padding-left: 5px;
+    width: 120px; }
+
+.wow_spe > img{
+    margin-left: 4px; }
+
+.table-recrutement td{
+    line-height: 20px; }
+
+.opa30{
+    opacity: 0.2; }
+
+
+/* MISCI **********************************************************************/
+
+.label-warrior,
+.badge-warrior {
+  background-color: #C79C6E;
+  color: #FFFFFF;}
+
+.label-paladin,
+.badge-paladin {
+  background-color: #F58CBA;
+  color: #FFFFFF;}
+
+.label-hunter,
+.badge-hunter {
+  background-color: #ABD473;
+  color: #FFFFFF;}
+
+.label-rogue,
+.badge-rogue {
+  background-color: #E5B307;
+  color: #FFFFFF;}
+
+.label-priest,
+.badge-priest {
+  background-color: #FFFFFF;
+  color: #000000;}
+
+.label-dk,
+.badge-dk {
+  background-color: #C41F3B;
+  color: #FFFFFF;}
+
+.label-shaman,
+.badge-shaman {
+  background-color: #0070DE;
+  color: #FFFFFF;}
+
+.label-mage,
+.badge-mage {
+  background-color: #69CCF0;
+  color: #FFFFFF;}
+
+.label-warlock,
+.badge-warlock {
+  background-color: #9482C9;
+  color: #FFFFFF;}
+
+.label-monk,
+.badge-monk {
+  background-color: #00FF96;
+  color: #FFFFFF;}
+
+.label-druid,
+.badge-druid {
+  background-color: #FF7D0A;
+  color: #FFFFFF;}
+
+.label-dh,
+.badge-dh {
+  background-color: #A330C9;
+  color: #FFFFFF;}

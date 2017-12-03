@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <% include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <% include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2><%= title %></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong><%= title %></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="animated fadeInRightBig">
+                    
+                    <div class="alert alert-warning alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        Liens pour plus d'infos : <br/>
+                        <ul>
+                            <li><a href="http://www.wowhead.com/news=260675/artifact-weapons-whats-new-in-patch-7-2" target="_blank">http://www.wowhead.com/news=260675/artifact-weapons-whats-new-in-patch-7-2</a></li>
+                            <li><a href="http://www.mmo-champion.com/content/6473-Patch-7-2-Preparation-Character-Services-Sale-Blue-Posts-PvP-Title-Cutoff-Key-Art" target="_blank">http://www.mmo-champion.com/content/6473-Patch-7-2-Preparation-Character-Services-Sale-Blue-Posts-PvP-Title-Cutoff-Key-Art</a></li>
+                            <li><a href="http://www.wowhead.com/news=261124/be-prepared-what-to-do-before-legion-patch-7-2" target="_blank">http://www.wowhead.com/news=261124/be-prepared-what-to-do-before-legion-patch-7-2</a></li>
+                            <li><a href="http://www.mamytwink.com/guides/patch-72-de-wow-le-guide-des-nouveautes" target="_blank">http://www.mamytwink.com/guides/patch-72-de-wow-le-guide-des-nouveautes</a></li>
+                        </ul>
+                        Videos Start 7.2 avec broken Shore : <br/>
+                        <ul>
+                            <li><a href="https://www.youtube.com/watch?v=kGrDdKAqugg" target="_blank">https://www.youtube.com/watch?v=kGrDdKAqugg</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alert alert-info alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <b>(25/03) TLTR pour la 7.2 :</b><br/><br/>
+                        <li><b>25 000+ ressources de fief</b> pour les recherches + AK</li>
+                        <li>Artefact Power : farm <b>constant</b> mais pas intensif</li>
+                        <li>Mythic + : <b>+10</b> chaque semaine pour le loot max Ilvl</li>
+                        <li>New champions + equipement slot</li>
+                        <li>New legendary craft</li>
+                    </div>
+                    
+                    
+                    <h3 class="font-bold">Nouveautés de la 7.2 : </h3>
+                    <br/>
+                        
+                        <div class="col-md-12">
+                            <h4>Broken Shore <small><span style="color:red"><b>(new AK + currency + tout plein de choses)</b></span></small></h4>
+                            <div class="col-md-12">
+                                Nouvelle zone de la 7.2, je l'ai pas test, j'ai juste regardé 2-3 trucs dessus, et je vais juste detailler quoi faire en prio dessus pour avoir l'AK 26 le plus rapidement et donc potentiellement de l'AP plus rapidement.<br/>
+                                En rapport avec la vidéo dans les liens ci-dessus :<br/><br/>
+                                <ul>
+                                    <li> on debloque Broken Shore via khadgar (aire de krasus) </li>
+                                    <li> Scenario solo (15-30min)</li>
+                                    <li> Si WQ > 1h restante, ignore</li>
+                                    <br/>
+                                    <li> 3 quetes : 
+                                        <ul>
+                                            <li>Seeking Lost Knowledge (investigate the island)  &nbsp&nbsp&nbsp&nbsp        
+                                                <b>1st : </b> On complete la quete de khagdar (3 lieux à chercher) - On devrait avoir en retour une quete pour aller à dalaran (AK 26 -> 24.900% to 100.000%).</li>
+                                            <li>Legionfall Supplies (base buildings)	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                <b>2nd : </b> (besoin de 100 "Legionfall War Supplies" recus via WQ et les quetes de Khadgar) progression server side.</li>
+                                            <li>Aalgen points (unlock two fly points) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   
+                                                <b>3rd? :</b> sans doute à faire après, pas tout compris ici :D.</li>
+                                        </ul>
+                                    </li>
+                                    <br/>
+                                    <li>Quete de Maiev (defending Broken Isles) -> Legion Invasion à faire (250 Nethershard and part of Flying part2) (scenario de 3 personnes dayli ?).</li>
+                                    <li>Quete de Khadgar au retour sur Broken Shore : (avoir au moins 36 points d'artefact) (serie de quest a la fin artefact empower avec new traits + new Broken Shore WQ ).</li>
+                                </ul>
+
+                                <br/><br/>
+                                
+                                <center>
+                                    <img src="http://i.imgur.com/y7UjxhQ.png" width="" height="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <img src="http://i.imgur.com/ltlNdcb.png" width="" height="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <img src="http://i.imgur.com/YbIyZjj.png" width="" height="">
+                                </center>
+                                
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="col-md-12">
+                            <h4>Class hall Upgrade <small><span style="color:red"><b>(require Class Campaign completed)</b></span></small></h4>
+                            <div class="col-md-6">
+                                Nouveaux talents dans l'order Advancement (l'arbre de competence du class hall) :
+                                <ul>
+                                    <li>Rank 7 : 10 000 ressources (1 day search time)</li>
+                                    <li>Rank 8 : 15 000 ressources (5 days search time)</li>
+                                </ul>
+                                    1 semaine pour les faire, ca va vite, c'est free, have fun.
+                            </div>
+                            <div class="col-md-6">
+                               
+                                <img src="http://i.imgur.com/N5uFKMf.png" width="" height="">
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-12">
+                            <h4>Class hall Champions <small><span style="color:red"><b>(require Class Campaign completed)</b></span></small></h4>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li> Peuvent passer legendaire avec un 3e slot d'equipement.</li>
+                                    <li>1 champion en plus actif possible (max : 6 now)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="http://i.imgur.com/xXukGmj.png" width="" height="">
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-12">
+                            <h4>Réputations <small><span style="color:red"><b>(cache emissaire)</b></span></small></h4>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Pour chaque 10.000 réputations gagnés d'une faction déjà exaltée, on gagne une cache émissaire (loot, gold, et monture)</li><br/>
+                                (réputations toujours gagnés avec les WQ de chaques regions)
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="http://i.imgur.com/dUiUUMH.png" width="" height="">
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="col-md-12">
+                            <h4>Mythic + <small><span style="color:red"><b>(Weekly chest à +10)</b></span></small></h4>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Hausse de la difficulé générale des mythic+ et des récompenses.</li>
+                                    <li>Conclusion : Mythic 10 chaque semaine pour le loot max dans le chest </li> <b>Mythic 10 (7.2) == Mythic 15 (7.1.5) en terme de difficulté</b>.<br/>
+                                    <li>Changement également en terme de gains d'AP pour chaque donjons (HoV donne plus qu'avant et MoS donne moins qu'avant), je ne connais pas encore les gains d'AP de chaque instance, mais dans l'idée, ca equilibre un peu les choses.</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                Dungeons Chest : <img src="http://i.imgur.com/Xa0NUoS.png" width="" height="">
+                                Weekly Chest : <img src="http://i.imgur.com/OQk6lKv.png" width="" height="">
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="col-md-12">
+                            <h4>Artefact Power 7.2 <small><span style="color:red"><b>(max 101 traits LOL!)</b></span></small></h4>
+                            <div class="col-md-12">
+                                <ul>
+                                    <li>Reset des 54 points à <b>35 points</b> après la quest d'empower pour avoir les nouveaux traits (on garde l'AP gagnés de 35 a 54 pour les mettres ou on veut, no regret !).</li>
+                                    <li>Nouveaux traits pour chaque armes.</li>
+                                    <li>Les traits qui sont à 3/3 peuvent monter à <b>4/4</b>. <br/>
+                                        (avec les points en stocks et le nouveaux cout en AP, on devrait pouvoir monter à <b>39.75 points</b> (soit 39)(40 points pour 70.766.330 AP soit 5kk d'AP en plus a farm))</li>
+                                    <li>AK max passe de 25 à <b>50</b> (2 à 5jours de recherche comme avant) avec des variations de gains bien plus prononcé qu'avant.</li>
+                                    <li>Résultat: comme à l'époque d'EN, essayez de trouver un équilibre entre farm et temps passé dessus sans vous en demotiver<br/>
+                                        (ca sert a rien de farm des instance 10h par jours comme à ToV pour de l'AP, car 5 jours après vous allez faire le meme nombre d'AP beaucoup plus rapidement)<br/>
+                                        il faut juste trouver un <b>équilibre et être constant</b>.</li>
+                                    <li>Le dernier point (paragon point on l'appelera) est atteignable à partir de <b>2.228.766.330 AP</b> (tout l'arbre à 4/4 + les nouveaux traits).</li>
+                                    
+                                    
+                                    
+                                </ul>
+                            </div>
+                            <div class="col-md-12">
+                                <img src="http://i.imgur.com/sdD4DMN.png" width="" height="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <img src="http://i.imgur.com/wpdDE8D.png" width="" height="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <img src="http://i.imgur.com/8DUkEYc.png" width="" height="">
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-12">
+                            <h4>Craft Legendaire <small><span style="color:red"><b></b></span></small></h4>
+                            <div class="col-md-6">
+                                Nouveau légendaire (bien pour farm ou mythic+) BoE, vente à l'AH possible.
+                                <ul>
+                                    <li>
+                                            <a href="//ptr.wowhead.com/item=146666" class="q5 icontiny" data-entity="item" data-entity-has-icon="true">
+                                            <img src="//wow.zamimg.com/images/wow/icons/tiny/inv_cloth_raidmage_p_01shoulder.gif" align="absmiddle">&nbsp;
+                                            <span class="tinyicontxt">Celumbra, the Night's Dichotomy</span></a>
+                                    </li>
+                                    <li>
+                                            <a href="//ptr.wowhead.com/item=146667" class="q5 icontiny" data-entity="item" data-entity-has-icon="true">
+                                            <img src="//wow.zamimg.com/images/wow/icons/tiny/inv_plate_draenorcrafted_d_01buckle.gif" align="absmiddle">&nbsp;
+                                            <span class="tinyicontxt">Rethu's Incessant Courage</span></a>
+                                    </li>
+                                    <li>
+                                            <a href="//ptr.wowhead.com/item=146668" class="q5 icontiny" data-entity="item" data-entity-has-icon="true">
+                                            <img src="//wow.zamimg.com/images/wow/icons/tiny/inv_glove_mail_vrykuldragonrider_b_01.gif" align="absmiddle">&nbsp;
+                                            <span class="tinyicontxt">Vigilance Perch</span></a>
+                                    </li>
+                                    <li>
+                                            <a href="//ptr.wowhead.com/item=146669" class="q5 icontiny" data-entity="item" data-entity-has-icon="true">
+                                            <img src="//wow.zamimg.com/images/wow/icons/tiny/inv_leather_raiddemonhuntermythic_q_02boots.gif" align="absmiddle">&nbsp;
+                                            <span class="tinyicontxt">The Sentinel's Eternal Refuge</span></a>
+                                    </li>
+                                </ul>
+                               
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    
+                    
+                   
+                            
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                         <br/><br/><br/><br/><br/>
+
+                         
+
+                </div>
+            </div>
+            <!-- END CONTENT BAR -->
+
+            <!-- FOOTER BAR -->
+            <% include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- WowHead ToolTip usage -->
+    <script src="http://static.wowhead.com/widgets/power.js" type="text/javascript"></script>
+    <script src="/js/wowhead_tooltips.js" type="text/javascript"></script>
+    
+    <% include partials/_miscjs %>
+
+</body>
+
+</html>

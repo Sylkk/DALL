@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_header %>
+
+<body class="gray-bg">
+
+    <div class="passwordBox animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="ibox-content">
+                    <h2 class="font-bold">Mot de passe perdu</h2>
+                    <p>Entrez votre adresse email et vous recevrez un mail afin de changer votre mot de passe.</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger <%= !error ? hidingError : '' %>"><%= error %></div>
+                            <div class="alert alert-info <%= !info ? hidingInfo : '' %>"><%= info %></div>
+                            <form class="m-t" role="form" id="forgotForm" method="POST" action="/forgot">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email address" name="email" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary block full-width m-b">Reset Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <center><a href="/login" >Login</a></center>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6 text-right">
+               <small></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    
+     <!-- Validate -->
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#forgotForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

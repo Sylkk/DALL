@@ -1,0 +1,278 @@
+<section id="recrutement" class="contacts-section">
+    <div class="container content-lg">
+        <div class="title-v1">
+            <h2>Recrutement</h2>
+            <p>Nous sommes toujours à la recherche de nouveaux joueurs talentueux, <br/>
+            donc si l'envie vous en dit, venez tenter votre chance avec nous!<br/><br/>
+            <button class="btn-u btn-u-sm btn-brd btn-brd-hover btn-u-light" id="btn_postuler">POSTULER</button>
+            </p>
+        </div>
+
+        <div class="row contacts-in hidden" id="formulaireApply">
+
+            <!-- Demarche recrutement -->
+            <div class="col-md-9 md-margin-bottom-40">
+                    <blockquote>
+                        <h2 class="spec">Apply ecrite</h2>
+                        <p>
+                            Nous savons que cela ne fait plaisir à personne de faire une apply écrite, mais cela vous permet de nous prouver votre motivation.<br>
+                            C'est pour cela que le questionnaire n'est pas poussé, on cherche juste à voir si vous savez de quoi vous parlez, et nous permet d'avoir une première impression.<br>
+                        </p>
+                    </blockquote>
+                    <blockquote>
+                        <h2 class="spec">Petit entretien vocal</h2>
+                        <p>
+                            Suite à votre apply écrite, nous nous efforcerons de vous donner une réponse dans les plus brefs délais. 
+                            Dans le cas d'une réponse positive, s'ensuivra un petit entretien sur notre mumble afin de vous expliquer comment fonctionne la guilde plus en détails.
+                            De plus, cela nous permettra de faire plus ample connaissance, et de répondre à vos questions. 
+                        </p>
+                    </blockquote>
+
+                    <blockquote>
+                        <h2 class="spec">Phase de test</h2>
+                        <p>
+                            La phase la plus importante chez nous. Cette période n'a pas de durée prédéfinie, cela dépend des joueurs.<br>
+                            Elle nous permet de vous étudier plus en détail, de voir votre niveau de jeu, votre capacité à comprendre et appliquer rapidement une strat, 
+                            de savoir si vous êtes force de proposition. Bref, cette phase sert à valider tout ce que l'on a appris sur vous précédemment.<br>
+                            Chose importante, l'apply n'est pas du tout prio sur les loots (hormis tank), il devra faire ses preuves auparavant.
+                        </p>
+                    </blockquote>
+            </div>
+            <div class="col-md-3 col-sm-5 recrutement">
+                <% if(tabRecrut){ %>                   
+                    <table class=" table table-recrutement">
+                        <tbody>
+                            <tr id="recrut_dk">
+                                <td class="wow_class top_class"><img src="/onePage/assets/img/class_icon/_dk.png"></td>
+                                <td class="wow_spename top_class">Death-Knight</td>
+                                <td id="0.0" class="wow_spe <%if(tabRecrut[0][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_blood.gif"></td>
+                                <td id="0.1" class="wow_spe <%if(tabRecrut[0][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_givre.gif"></td> 
+                                <td id="0.2" class="wow_spe <%if(tabRecrut[0][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dk_impie.gif"></td>
+                                <td id="0.3"></td>
+                            </tr>
+                            <tr id="recrut_dh">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_dh.png"></td>
+                                <td class="wow_spename">Demon-Hunter</td>
+                                <td id="1.0" class="wow_spe <%if(tabRecrut[1][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dh_vengeance.jpg"></td>
+                                <td id="1.1" class="wow_spe <%if(tabRecrut[1][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/dh_havoc.jpg"></td> 
+                                <td id="1.2"></td>
+                                <td id="1.3"></td>
+                            </tr>
+                            <tr id="recrut_druid">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_druid.png"></td>
+                                <td class="wow_spename">Druid</td>
+                                <td id="2.0" class="wow_spe <%if(tabRecrut[2][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_gardien.gif"></td>
+                                <td id="2.1" class="wow_spe <%if(tabRecrut[2][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_feral.gif"></td>
+                                <td id="2.2" class="wow_spe <%if(tabRecrut[2][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_equi.gif"></td>
+                                <td id="2.3" class="wow_spe <%if(tabRecrut[2][3] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/druid_resto.gif"></td>
+                            </tr>
+                            <tr id="recrut_hunter">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_hunt.png"></td>
+                                <td class="wow_spename">Hunter</td>
+                                <td id="3.0" class="wow_spe <%if(tabRecrut[3][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_beast.gif"></td>
+                                <td id="3.1" class="wow_spe <%if(tabRecrut[3][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_precis.gif"></td>
+                                <td id="3.2" class="wow_spe <%if(tabRecrut[3][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/hunter_survie.gif"></td>
+                                <td id="3.3"></td>
+                            </tr>
+                            <tr id="recrut_mage">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_mage.png"></td>
+                                <td class="wow_spename">Mage</td>
+                                <td id="4.0" class="wow_spe <%if(tabRecrut[4][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_frost.gif"></td>
+                                <td id="4.1" class="wow_spe <%if(tabRecrut[4][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_feu.gif"></td> 
+                                <td id="4.2" class="wow_spe <%if(tabRecrut[4][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/mage_arcane.gif"></td>
+                                <td id="4.3"></td>
+                            </tr>
+                            <tr id="recrut_monk">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_monk.png"></td>
+                                <td class="wow_spename">Monk</td>
+                                <td id="5.0" class="wow_spe <%if(tabRecrut[5][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_brew.gif"></td>
+                                <td id="5.1" class="wow_spe <%if(tabRecrut[5][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_wind.gif"></td>   
+                                <td id="5.2" class="wow_spe <%if(tabRecrut[5][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/monk_heal.gif"></td>
+                                <td id="5.3"></td>
+                            </tr>
+                            <tr id="recrut_paladin">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_pala.png"></td>
+                                <td class="wow_spename">Paladin</td>
+                                <td id="6.0" class="wow_spe <%if(tabRecrut[6][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_prot.gif"></td>
+                                <td id="6.1" class="wow_spe <%if(tabRecrut[6][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_ret.gif"></td> 
+                                <td id="6.2" class="wow_spe <%if(tabRecrut[6][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/pal_holy.gif"></td>
+                                <td id="6.3"></td>
+                            </tr>
+                            <tr id="recrut_priest">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_priest.png"></td>
+                                <td class="wow_spename">Priest</td>
+                                <td id="7.0" class="wow_spe <%if(tabRecrut[7][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_shadow.gif"></td>
+                                <td id="7.1" class="wow_spe <%if(tabRecrut[7][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_holy.gif"></td>
+                                <td id="7.2" class="wow_spe <%if(tabRecrut[7][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/priest_disci.gif"></td>
+                                <td id="7.3"></td>
+                            </tr>
+                            <tr id="recrut_rogue">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_rogue.png"></td>
+                                <td class="wow_spename">Rogue</td>
+                                <td id="8.0" class="wow_spe <%if(tabRecrut[8][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_assa.gif"></td>
+                                <td id="8.1" class="wow_spe <%if(tabRecrut[8][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_combat.gif"></td>  
+                                <td id="8.2" class="wow_spe <%if(tabRecrut[8][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/rogue_sub.gif"></td>
+                                <td id="8.3"></td>
+                            </tr>
+                            <tr id="recrut_shaman">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_sham.png"></td>
+                                <td class="wow_spename">Shaman</td>
+                                <td id="9.0" class="wow_spe <%if(tabRecrut[9][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_amelio.gif"></td>
+                                <td id="9.1" class="wow_spe <%if(tabRecrut[9][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_elem.gif"></td>
+                                <td id="9.2" class="wow_spe <%if(tabRecrut[9][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/chaman_restau.gif"></td>
+                                <td id="9.3"></td>
+                            </tr>
+                            <tr id="recrut_warlock">
+                                <td class="wow_class"><img src="/onePage/assets/img/class_icon/_warlock.png"></td>
+                                <td class="wow_spename">Warlock</td>
+                                <td id="10.0" class="wow_spe <%if(tabRecrut[10][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_affli.gif"></td>
+                                <td id="10.1" class="wow_spe <%if(tabRecrut[10][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_demono.gif"></td> 
+                                <td id="10.2" class="wow_spe <%if(tabRecrut[10][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/demo_destru.gif"></td>
+                                <td id="10.3"></td>
+                            </tr>
+                            <tr id="recrut_warrior">
+                                <td class="wow_class bottom_class"><img src="/onePage/assets/img/class_icon/_war.png"></td>
+                                <td class="wow_spename bottom_class">Warrior</td>
+                                <td id="11.0" class="wow_spe <%if(tabRecrut[11][0] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_prot.gif"></td>
+                                <td id="11.1" class="wow_spe <%if(tabRecrut[11][1] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_fury.gif"></td> 
+                                <td id="11.2" class="wow_spe <%if(tabRecrut[11][2] == 0){%>opa30<%}%>"><img src="/onePage/assets/img/class_icon/war_arms.gif"></td>
+                                <td id="11.3"></td>
+                            </tr>                                       
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+
+            <!-- End of Demarche recrutement -->
+
+            <!-- formulaire -->
+            <div class="col-md-12 col-sm-12">
+                <div class="headline"><h2>Formulaire de candidature</h2></div>
+                <form action="/" method="POST" id="formApply" class="sky-form contact-style">
+                    <fieldset>
+                        <label>Adresse email de contact <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-5 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <input type="email" name="contact_email" id="contact_email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <label>Battle-tag (optionnel)</label>
+                        <div class="row">
+                            <div class="col-md-3 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <input type="text" name="contact_btag" id="contact_btag" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="role-apply col-md-7 margin-bottom-20">
+                                    <input type="radio" name="role" value="DPS" checked="">&nbsp DPS<br/>
+                                    <input type="radio" name="role" value="TANK">&nbsp TANK<br/>
+                                    <input type="radio" name="role" value="HEAL">&nbsp HEAL
+                            </div>
+                        </div>
+
+                        <label>Lien Armurerie (valide) <span class="color-red">*</span> <small>(ex : https://worldofwarcraft.com/fr-fr/character/ysondre/sylkh)</small></label>
+                        <div class="row">
+                            <div class="col-md-7 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <input type="text" name="lien_armu" id="lien_armu" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Présentez-vous <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="3" name="presentation" id="presentation" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Depuis combien de temps jouez-vous? <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-7 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <input type="text" name="date_play" id="date_play" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Expérience PVE <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="5" name="xp_pve" id="xp_pve" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Motivations pour entrer dans la guilde <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="5" name="motivation" id="motivation" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Anciennes guildes <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="3" name="old_guild" id="old_guild" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Screen de votre interface + liste des addons utilisés <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="3" name="interface" id="interface" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Theorycraft de votre perso (+ AK et AP de toute vos spé) et Offspé (ilvl + tc) <span class="color-red">*</span></label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="5" name="tc" id="tc" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Rerolls (classe + lien armurie) si vous en avez</label>
+                        <div class="row">
+                            <div class="col-md-8 margin-bottom-20 col-md-offset-0">
+                                <div>
+                                    <textarea rows="3" name="reroll" id="reroll" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark">Envoyer la candidature</button></p>
+                    </fieldset>
+
+                    <div class="message">
+                        <i class="rounded-x fa fa-check"></i>
+                        <p>Votre apply a bien été envoyée. Vous devriez recevoir un mail de confirmation d'ici quelques minutes si tout s'est bien passé.</p>
+                    </div>
+                </form>
+            </div>
+            <!-- End of Formulaire -->
+
+        </div>
+    </div>
+
+    <div class="copyright-section">
+        <p>2016-2017 &copy; All Rights Reserved. </p>
+        <span class="page-scroll"><a href="#intro"><i class="fa fa-angle-double-up back-to-top"></i></a></span>
+    </div>
+</section>

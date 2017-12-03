@@ -1,0 +1,57 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <span class="label label-success pull-right"><%=main.ilvl%> ilvl</span>
+        <h5>Miscellaneous</h5>
+    </div>
+    <div class="ibox-content">
+        <% var percent_AP       = Math.round((main.artefactPower*100)/_maxAP) %>
+        <% var percent_achiev   = Math.round((main.achievPts*100)/_maxAchievPts) %>
+        
+        <h1 class="no-margins"><%= numberWithSep(main.artefactPower); %></h1>
+        <div class="stat-percent font-bold text-success"><%=percent_AP%>%</div>
+        <small>Total Artefact Power</small>
+        <ul class="stat-list m-t-lg ">
+
+            <!-- Item Level -->
+            <li>
+                <div>
+                    <span>Item Level</span>
+                    <small class="pull-right"><%=main.ilvl%>/<%=_maxItemLvl%> ilvl</small>
+                </div>
+                <% var percent = Math.round(((main.ilvl-800)*100)/(_maxItemLvl-800))%>
+                <div class="progress progress-mini">
+                    <div style="width: <%=percent%>%;" class="progress-bar"></div>
+                </div>
+            </li>
+
+            <!-- Artefact Power -->
+            <li>
+                <div>
+                    <span>AP</span>
+                    <small class="pull-right"><%= numberWithSep(main.artefactPower); %> AP</small>
+                </div>
+                <div class="progress progress-mini">
+                    <div style="width: <%=percent_AP%>%;" class="progress-bar"></div>
+                </div>
+            </li>
+            
+            <!-- Achievement -->
+            <li>
+                <div>
+                    <span>Achievement Points</span>
+                    <small class="pull-right"><%= numberWithSep(main.achievPts); %> Pts</small>
+                </div>
+            </li>
+            
+            <!-- Dungeons done -->
+            <li>
+                <div>
+                    <span>Dungeons</span>
+                    <small class="pull-right"><%= numberWithSep(main.getSumDungeonBossKills()); %> Done</small>
+                </div>
+            </li>
+            
+            
+        </ul>
+    </div>
+</div>

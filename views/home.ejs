@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<%- include partials/_header %>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!-- LEFT Navigation bar -->
+        <%- include partials/_left_navbar %>
+        <!-- END OF LEFT Navigation bar -->
+
+        <!-- PAGE WRAPPER -->
+        <div id="page-wrapper" class="gray-bg">
+            <!-- TOP NAV BAR -->
+            <%- include partials/_top_navbar %>
+            <!-- END TOP NAV BAR -->
+
+            <!-- TITLE BAR -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-8">
+                    <h2>Danse avec les Loots - TOOLS</h2>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <strong>Home</strong>
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+            <!-- END TITLE BAR -->
+            
+            <%  var tank = new Array(); var melee = new Array(); var caster = new Array(); var heal = new Array(); %>
+            <%  var tissu = new Array(); var cuir = new Array(); var mail = new Array(); var plaque = new Array(); %>
+            <%  var vanquisher = new Array(); var conqueror = new Array(); var protector = new Array();%>
+            
+            <%  var pseudo = new Array(); var tos_mythic_kill_qte = new Array(); %> 
+            <%  var tot_ilvl = tank_ilvl = melee_ilvl = caster_ilvl = heal_ilvl = 0; %>
+            <%  var tissu_ilvl = cuir_ilvl = mail_ilvl = plaque_ilvl = 0; %>
+            <%  var vanquisher_ilvl = conqueror_ilvl = protector_ilvl = 0; %>
+            
+            <%  chars.forEach(function(char){ 
+                    //attendance mythic boss killed
+                    pseudo.push(char.data.name);
+                    tos_mythic_kill_qte.push(char.progress.ToS_mythic_tot);
+                
+                    //roster/role stats
+                    tot_ilvl += char.ilvle;
+                    switch(char.role){
+                        case "TANK": tank.push(char); tank_ilvl += char.ilvle; break;
+                        case "MELEE": melee.push(char); melee_ilvl += char.ilvle; break;
+                        case "CASTER": caster.push(char); caster_ilvl += char.ilvle; break;
+                        case "HEAL": heal.push(char); heal_ilvl += char.ilvle; break;
+                    }
+                    
+                })
+            %>
+            
+            <% chars.forEach(function(char){
+                    switch(char.class){
+                        case 1: plaque.push(char); protector.push(char); protector_ilvl += char.ilvle; plaque_ilvl += char.ilvle; break; //warrior
+                        case 2: plaque.push(char); conqueror.push(char); conqueror_ilvl += char.ilvle; plaque_ilvl += char.ilvle; break; //paladin
+                        case 3: mail.push(char); protector.push(char); protector_ilvl += char.ilvle; mail_ilvl += char.ilvle; break; //hunter
+                        case 4: cuir.push(char); vanquisher.push(char); vanquisher_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //rogue
+                        case 5: tissu.push(char); conqueror.push(char); conqueror_ilvl += char.ilvle; tissu_ilvl += char.ilvle ; break; //priest
+                        case 6: plaque.push(char); vanquisher.push(char); vanquisher_ilvl += char.ilvle; plaque_ilvl += char.ilvle; break; //dk
+                        case 7: mail.push(char); protector.push(char); protector_ilvl += char.ilvle; mail_ilvl += char.ilvle; break; //shaman
+                        case 8: tissu.push(char); vanquisher.push(char); vanquisher_ilvl += char.ilvle; tissu_ilvl += char.ilvle ; break; //mage
+                        case 9: tissu.push(char); conqueror.push(char); conqueror_ilvl += char.ilvle; tissu_ilvl += char.ilvle ; break; //warlock
+                        case 10: cuir.push(char); protector.push(char); protector_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //monk
+                        case 11: cuir.push(char); vanquisher.push(char); vanquisher_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //druid
+                        case 12: cuir.push(char); conqueror.push(char); conqueror_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //dh
+                    }
+
+
+                })
+            %>
+            
+            <!-- CONTENT BAR -->
+            <div class="wrapper wrapper-content">     
+                                
+                <%- include partials_home/_notification %>
+                
+                <!-- PROFILE + ROSTER MAIN -->
+                <div class="row">
+                    <!-- PAS DE MAIN -->
+                    <% if(!user.icone){ %>
+
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="ibox-content text-center">
+                                        <h1>Ajouter un main</h1>
+                                        <a href="/profile">
+                                            <button class="btn btn-primary btn-circle btn-lg btn-outline plusChar" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </a>
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- MAIN -->
+                    <% }else{ %>
+
+                        <%  var main;
+                            chars.forEach(function(chara){
+                                if(chara.icone === user.icone && 
+                                   chara._id_user.toString() === user._id.toString()){
+                                    main = chara;
+                                }
+                            });
+                        %>
+
+                        <%if(main){%>
+                            <div class="col-lg-3 col-md-12">
+                                <%- include partials_home/_profile_info %>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <%- include partials_home/_misci_info %>
+                            </div>
+                            <div class="col-lg-2 col-md-6">
+                                <%- include partials_home/_reput_info %>
+                            </div>
+                        <% } %>
+                    
+                    <% } %>
+                
+                    <!-- ROSTER INFORMATIONS -->
+                    <div class="col-lg-4 col-md-12">
+                         <%- include partials_home/_roster_info %>
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- ATTENDANCE INFORMATIONS -->
+                        <%- include partials_home/_attendance_info %>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <!-- CHAR LIST INFORMATIONS -->
+                        <%- include partials_home/_main_list %>    
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <!-- ROSTER DETAILS INFORMATIONS -->
+                        <%- include partials_home/_roster_feed %>     
+                    </div>
+                </div>
+                
+
+            </div>
+            <!-- END CONTENT BAR -->
+            
+            <%  
+                function numberWithSep(x){
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                }
+            %>
+            
+            <% 
+                function sortJsonArrayByProperty(objArray, prop, direction){
+                    if (arguments.length<2) throw new Error("sortJsonArrayByProp requires 2 arguments");
+                    var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
+
+                    if (objArray && objArray.constructor===Array){
+                        var propPath = (prop.constructor===Array) ? prop : prop.split(".");
+                        objArray.sort(function(a,b){
+                            for (var p in propPath){
+                                if (a[propPath[p]] && b[propPath[p]]){
+                                    a = a[propPath[p]];
+                                    b = b[propPath[p]];
+                                }
+                            }
+                            // convert numeric strings to integers
+                            //a = a.match(/^\d+$/) ? +a : a;
+                            //b = b.match(/^\d+$/) ? +b : b;
+                            return ( (a < b) ? -1*direct : ((a > b) ? 1*direct : 0) );
+                        });
+                    }
+                }
+            %>
+
+            <!-- FOOTER BAR -->
+            <%- include partials/_footer %>
+            <!-- END FOOTER BAR -->
+        </div>
+        <!-- END PAGE WRAPPER -->
+        
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    <script src="/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/js/demo/sparkline-demo.js"></script>
+    
+    <!-- Flot -->
+    <script src="/js/plugins/flot/jquery.flot.js"></script>
+    <script src="/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="/js/plugins/flot/jquery.flot.pie.js"></script>
+    
+    <!-- WowHead ToolTip usage -->
+    <script src="http://static.wowhead.com/widgets/power.js" type="text/javascript"></script>
+    <script src="/js/wowhead_tooltips.js" type="text/javascript"></script>
+    
+    <!-- ChartJS -->
+    <script src="/js/plugins/chartJs/Chart.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#btn_role_rep").click(function(){
+                $("#rep_role").removeClass("hidden");
+                $("#rep_armor").addClass("hidden");
+                $("#rep_token").addClass("hidden");
+                
+                $("#btn_role_rep").removeClass("btn-white").addClass("btn-primary");
+                $("#btn_armor_rep").removeClass("btn-primary").addClass("btn-white");
+                $("#btn_token_rep").removeClass("btn-primary").addClass("btn-white");
+            })
+            
+            $("#btn_armor_rep").click(function(){
+                $("#rep_role").addClass("hidden");
+                $("#rep_armor").removeClass("hidden");
+                $("#rep_token").addClass("hidden");
+                
+                $("#btn_role_rep").removeClass("btn-primary").addClass("btn-white");
+                $("#btn_armor_rep").removeClass("btn-white").addClass("btn-primary");
+                $("#btn_token_rep").removeClass("btn-primary").addClass("btn-white");
+            })
+            
+            $("#btn_token_rep").click(function(){
+                $("#rep_role").addClass("hidden");
+                $("#rep_armor").addClass("hidden");
+                $("#rep_token").removeClass("hidden");
+                
+                $("#btn_role_rep").removeClass("btn-primary").addClass("btn-white");
+                $("#btn_armor_rep").removeClass("btn-primary").addClass("btn-white");
+                $("#btn_token_rep").removeClass("btn-white").addClass("btn-primary");
+            })
+            
+        });
+    </script>
+    
+    <!-- Role Representation -->
+    <script>
+        $(document).ready(function() {
+
+            var role_doughnutData = [
+                {
+                    value: <%=tank.length%>,
+                    color: "#f8bfc5",
+                    highlight: "#ed5565",
+                    label: "Tank"
+                },
+                {
+                    value: <%=melee.length%>,
+                    color: "#fcdbb7",
+                    highlight: "#f8ac59",
+                    label: "Melee"
+                },
+                {
+                    value: <%=caster.length%>,
+                    color: "#A4CEE8",
+                    highlight: "#1c84c6",
+                    label: "Caster"
+                },
+                {
+                    value: <%=heal.length%>,
+                    
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "Healer"
+                }
+            ];
+
+            var role_doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 0, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+            var ctx = document.getElementById("roleDoughnutChart").getContext("2d");
+            var DoughnutChart = new Chart(ctx).Doughnut(role_doughnutData, role_doughnutOptions);
+
+        });
+    </script>
+    
+    <!-- Armor Representation -->
+    <script>
+        $(document).ready(function() {
+
+            var armor_doughnutData = [
+                {
+                    value: <%=tissu.length%>,
+                    
+                    color: "#f8bfc5",
+                    highlight: "#ed5565",
+                    label: "Tissu"
+                },
+                {
+                    value: <%=cuir.length%>,
+                    color: "#fcdbb7",
+                    highlight: "#f8ac59",
+                    label: "Cuir"
+                },
+                {
+                    value: <%=mail.length%>,
+                    color: "#A4CEE8",
+                    highlight: "#1c84c6",
+                    label: "Maille"
+                },
+                {
+                    value: <%=plaque.length%>,
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "Plaque"
+                }
+            ];
+
+            var armor_doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 0, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+            var ctx = document.getElementById("armorDoughnutChart").getContext("2d");
+            var DoughnutChart = new Chart(ctx).Doughnut(armor_doughnutData, armor_doughnutOptions);
+
+        });
+    </script>
+    
+    <!-- Token Representation -->
+    <script>
+        $(document).ready(function() {
+
+            var token_doughnutData = [
+                {
+                    value: <%=vanquisher.length%>,
+                    color: "#f8bfc5",
+                    highlight: "#ed5565",
+                    label: "Vanquisher"
+                },
+                {
+                    value: <%=protector.length%>,
+                    color: "#fcdbb7",
+                    highlight: "#f8ac59",
+                    label: "Protector"
+                },
+                {
+                    value: <%=conqueror.length%>,
+                    color: "#A4CEE8",
+                    highlight: "#1c84c6",
+                    label: "Conqueror"
+                }
+            ];
+
+            var token_doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 0, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+            var ctx = document.getElementById("tokenDoughnutChart").getContext("2d");
+            var DoughnutChart = new Chart(ctx).Doughnut(token_doughnutData, token_doughnutOptions);
+
+        });
+    </script>
+    
+    <!-- Attendance Graph --> 
+    <script>
+        $(document).ready(function() {
+            
+            var barData = {
+                labels: [
+                        <% pseudo.forEach(function(name){ %>
+                            "<%= name %>",
+                        <% }) %>
+                        ], 
+                datasets: [
+                    {
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.8)",
+                        highlightFill: "rgba(26,179,148,0.75)",
+                        highlightStroke: "rgba(26,179,148,1)",
+                        data: [<%= tos_mythic_kill_qte %>],
+                    },
+                    //{
+                        //label: "My Second dataset",
+                        //fillColor: "rgba(26,179,148,0.5)",
+                        //strokeColor: "rgba(26,179,148,0.8)",
+                        //highlightFill: "rgba(26,179,148,0.75)",
+                        //highlightStroke: "rgba(26,179,148,1)",
+                        //data: [28, 48, 40, 19, 86, 27, 90]
+                    //}
+                ]
+            };
+
+            var barOptions = {
+                scaleBeginAtZero: true,
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                barShowStroke: true,
+                barStrokeWidth: 2,
+                barValueSpacing: 5,
+                barDatasetSpacing: 1,
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+
+
+            var ctx = document.getElementById("attendanceBarChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(barData, barOptions);
+
+        });
+    </script>
+    
+    
+    <%- include partials/_miscjs %>
+
+</body>
+
+</html>
