@@ -87,7 +87,7 @@ app.use(logger('[:mydate] :method :url :status :res[content-length] - :remote-ad
 */
 
 
-//console.log('MONGO_URI: ' + process.env.BNET_API_KEY);
+//console.log('MONGO_URI: ' + process.env.MONGO_URI);
 //console.log(process.env);
 
 
