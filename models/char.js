@@ -34,7 +34,8 @@ var CharSchema = mongoose.Schema({
                         EN_mythic_tot: Number,
                         ToV_mythic_tot: Number,
                         NH_mythic_tot: Number,
-                        ToS_mythic_tot: Number
+                        ToS_mythic_tot: Number,
+                        Ant_mythic_tot: Number
                     },
     lastModified:   Number,
     lastUpdated:    Number,

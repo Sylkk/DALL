@@ -136,6 +136,7 @@ module.exports = {
                     //char.progress.KaraL  = data.statistics.subCategories[5].subCategories[6].statistics[28].quantity;
                     //char.progress.KaraH  = data.statistics.subCategories[5].subCategories[6].statistics[28].quantity;
                     //char.progress.Cathe  = data.statistics.subCategories[5].subCategories[6].statistics[28].quantity;
+                    
                     //ToS mythic Kill quantity total
                     char.progress.ToS_mythic_tot = 0;
                     char.progress.ToS_mythic_tot =  data.statistics.subCategories[5].subCategories[6].statistics[113].quantity +
@@ -148,6 +149,19 @@ module.exports = {
                                                     data.statistics.subCategories[5].subCategories[6].statistics[141].quantity +
                                                     data.statistics.subCategories[5].subCategories[6].statistics[145].quantity ;
                     
+                    //Antorus mythic Kill quantity total
+                    char.progress.Ant_mythic_tot = 0;
+                    char.progress.Ant_mythic_tot =  data.statistics.subCategories[5].subCategories[6].statistics[149].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[153].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[157].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[161].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[165].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[169].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[173].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[177].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[181].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[185].quantity +
+                                                    data.statistics.subCategories[5].subCategories[6].statistics[189].quantity;
                     
                     
                 }

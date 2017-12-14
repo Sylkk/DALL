@@ -161,7 +161,6 @@
                                             <th style="min-width:215px;">&nbsp&nbsp Professions</th>
                                             <th style="width:150px;">Last Played</th>
                                             <th style="width:165px;">Update</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -219,15 +218,26 @@
                             </td>
                             <!-- Professions -->
                             <td>
+                             
+                                    
                                 <% for(var i=0; i< chara.getProfessions().length;i++){ %>
                                     &nbsp&nbsp
                                     <span class="profileProf listing-roster-items">
+                                    
+                                    <% var rankPro = chara.getProfessions()[i].rank; var maxPro = chara.getProfessions()[i].max; %>
+
                                         <img src="<%= chara.getProfessionsIcon(chara.getProfessions()[i].icon) %>" width="20" height="20" class="profIcon bordered" title="<%=chara.getProfessions()[i].name%>"/>
-                                        <% if(chara.getProfessions()[i].rank >= chara.getProfessions()[i].max){ %><b><% } %>
-                                            <%= chara.getProfessions()[i].rank + " / " + chara.getProfessions()[i].max %>
-                                        <% if(chara.getProfessions()[i].rank >= chara.getProfessions()[i].max){ %></b><% } %>
+                                            
+                                        <% if(rankPro >= maxPro){ %>
+                                            <b><% } %>
+                                        <%= ('00' + rankPro).slice(-3) + " / " + ('00' + maxPro).slice(-3) %>
+                                        <% if(rankPro >= maxPro){ %>
+                                            </b><% } %>
+
                                     </span>&nbsp
                                 <% } %>
+                                  
+                             
                             </td>
                             <!-- Last Played -->
                             <td>
@@ -280,7 +290,7 @@
     <script src="/js/inspinia.js"></script>
     <script src="/js/plugins/pace/pace.min.js"></script>
     
-    <%- include partials/_miscjs %>
+    <%- include partials/_miscjs %> 
     
     <script>
         $(".profIcon").tooltip({

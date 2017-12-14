@@ -35,7 +35,7 @@
             <%  var tissu = new Array(); var cuir = new Array(); var mail = new Array(); var plaque = new Array(); %>
             <%  var vanquisher = new Array(); var conqueror = new Array(); var protector = new Array();%>
             
-            <%  var pseudo = new Array(); var tos_mythic_kill_qte = new Array(); %> 
+            <%  var pseudo = new Array(); var tos_mythic_kill_qte = new Array(); var ant_mythic_kill_qte = new Array();%> 
             <%  var tot_ilvl = tank_ilvl = melee_ilvl = caster_ilvl = heal_ilvl = 0; %>
             <%  var tissu_ilvl = cuir_ilvl = mail_ilvl = plaque_ilvl = 0; %>
             <%  var vanquisher_ilvl = conqueror_ilvl = protector_ilvl = 0; %>
@@ -44,6 +44,7 @@
                     //attendance mythic boss killed
                     pseudo.push(char.data.name);
                     tos_mythic_kill_qte.push(char.progress.ToS_mythic_tot);
+                    ant_mythic_kill_qte.push(char.progress.Ant_mythic_tot);
                 
                     //roster/role stats
                     tot_ilvl += char.ilvle;
@@ -72,8 +73,6 @@
                         case 11: cuir.push(char); vanquisher.push(char); vanquisher_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //druid
                         case 12: cuir.push(char); conqueror.push(char); conqueror_ilvl += char.ilvle; cuir_ilvl += char.ilvle; break; //dh
                     }
-
-
                 })
             %>
             
@@ -223,6 +222,7 @@
     
     <script>
         $(document).ready(function() {
+            //Doughnut chart
             $("#btn_role_rep").click(function(){
                 $("#rep_role").removeClass("hidden");
                 $("#rep_armor").addClass("hidden");
@@ -251,6 +251,25 @@
                 $("#btn_role_rep").removeClass("btn-primary").addClass("btn-white");
                 $("#btn_armor_rep").removeClass("btn-primary").addClass("btn-white");
                 $("#btn_token_rep").removeClass("btn-white").addClass("btn-primary");
+            })
+            
+            
+            //Attendance mythic kill
+            
+            $("#btn_ANT_rep").click(function(){
+                $("#rep_TOS").addClass("hidden");
+                $("#rep_ANT").removeClass("hidden");
+                
+                $("#btn_TOS_rep").removeClass("btn-primary").addClass("btn-white");
+                $("#btn_ANT_rep").removeClass("btn-white").addClass("btn-primary");
+            })
+            
+            $("#btn_TOS_rep").click(function(){
+                $("#rep_TOS").removeClass("hidden");
+                $("#rep_ANT").addClass("hidden");
+                
+                $("#btn_TOS_rep").removeClass("btn-white").addClass("btn-primary");
+                $("#btn_ANT_rep").removeClass("btn-primary").addClass("btn-white");
             })
             
         });
@@ -396,11 +415,11 @@
         });
     </script>
     
-    <!-- Attendance Graph --> 
+    <!-- Attendance mythic boss Graph --> 
     <script>
         $(document).ready(function() {
             
-            var barData = {
+            var barData_ToS = {
                 labels: [
                         <% pseudo.forEach(function(name){ %>
                             "<%= name %>",
@@ -414,14 +433,23 @@
                         highlightStroke: "rgba(26,179,148,1)",
                         data: [<%= tos_mythic_kill_qte %>],
                     },
-                    //{
-                        //label: "My Second dataset",
-                        //fillColor: "rgba(26,179,148,0.5)",
-                        //strokeColor: "rgba(26,179,148,0.8)",
-                        //highlightFill: "rgba(26,179,148,0.75)",
-                        //highlightStroke: "rgba(26,179,148,1)",
-                        //data: [28, 48, 40, 19, 86, 27, 90]
-                    //}
+                ]
+            };
+
+            var barData_Ant = {
+                labels: [
+                        <% pseudo.forEach(function(name){ %>
+                            "<%= name %>",
+                        <% }) %>
+                        ], 
+                datasets: [
+                    {
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.8)",
+                        highlightFill: "rgba(26,179,148,0.75)",
+                        highlightStroke: "rgba(26,179,148,1)",
+                        data: [<%= ant_mythic_kill_qte %>],
+                    },
                 ]
             };
 
@@ -439,8 +467,11 @@
             }
 
 
-            var ctx = document.getElementById("attendanceBarChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Bar(barData, barOptions);
+            var ctx = document.getElementById("attendanceBarChart_ToS").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(barData_ToS, barOptions);            
+
+            var ctx = document.getElementById("attendanceBarChart_Ant").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(barData_Ant, barOptions);
 
         });
     </script>

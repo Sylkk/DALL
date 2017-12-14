@@ -1,15 +1,68 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <small class="pull-right">< 12h</small>
-        <h5>Attendance <small>(nombre de boss mythic tués à ToS)</small></h5>
+        <div class="btn-group pull-right">
+            <button id="btn_ANT_rep"  class="btn btn-primary btn-xs" type="button">Antorus</button>
+            <button id="btn_TOS_rep" class="btn btn-white btn-xs" type="button">Tomb of Sargeras</button>
+        </div>
+        <h5>Attendance <small>(nombre de boss mythic tués)</small></h5>
     </div>
-    <div class="ibox-content">
+    
+    
+    <div id="rep_ANT" class="ibox-content">
         <div class="row">
-            
             <div class="col-lg-9">
                 <div class="flot-char">
                     <div id="wrapper" class="flot-chart-content" style="padding: 0px; position: relative; height: 275px">
-                        <canvas id="attendanceBarChart" style="direction: ltr; position: absolute; left: 0px; top: 0px;"></canvas>
+                        <canvas id="attendanceBarChart_Ant" style="direction: ltr; position: absolute; left: 0px; top: 0px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        
+            <% var Ant_mythic_kill_moy = 0; var sum_Ant_mythic_kill =0; %>
+            <% chars.forEach(function(char){
+                    sum_Ant_mythic_kill += char.progress.Ant_mythic_tot;
+               });
+               Ant_mythic_kill_moy = sum_Ant_mythic_kill / chars.length;
+            %>
+            
+            <% sortJsonArrayByProperty(chars, 'progress.Ant_mythic_tot'); %>
+            
+            <div class="col-lg-3">
+                <table class="table table-hover no-margins">
+                    <thead>
+                        <tr>
+                            <th>Pseudo</th>
+                            <th>Kill (<%=sum_Ant_mythic_kill %>)</th>
+                            <th>Diff % moy</th>
+                        </tr>
+                    </thead>
+                    <tbody><% var i = 0; %>
+                        <% chars.some(function(char){ %>
+                            <% i++;  %>
+                            <tr>
+                                <td><small><%= char.data.name %></small></td>
+                                <td><%= char.progress.Ant_mythic_tot %></td>
+                                <% var diff_kill_value = char.progress.Ant_mythic_tot - Ant_mythic_kill_moy %>
+                                <% if (diff_kill_value > 0){ %>
+                                    <td class="text-navy"> <i class="fa fa-level-up"></i> +<%= Math.round(diff_kill_value*100)/100 %> </td>
+                                <% } else if(diff_kill_value < 0){ %>
+                                    <td class="text-navy"> <i class="fa fa-level-down"></i> <%= Math.round(diff_kill_value*100)/100 %> </td>
+                                <% } %>    
+                            </tr>
+                            <% if(i>=7) return true; %>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div id="rep_TOS" class="ibox-content hidden">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="flot-char">
+                    <div id="wrapper" class="flot-chart-content" style="padding: 0px; position: relative; height: 275px">
+                        <canvas id="attendanceBarChart_ToS" style="direction: ltr; position: absolute; left: 0px; top: 0px;"></canvas>
                     </div>
                 </div>
             </div>
@@ -24,7 +77,6 @@
             <% sortJsonArrayByProperty(chars, 'progress.ToS_mythic_tot'); %>
             
             <div class="col-lg-3">
-                              
                 <table class="table table-hover no-margins">
                     <thead>
                         <tr>
@@ -51,7 +103,7 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
+    
 </div>
