@@ -143,11 +143,11 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-12 col-md-12">
                         <!-- CHAR LIST INFORMATIONS -->
                         <%- include partials_home/_main_list %>    
                     </div>
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-12 col-md-12">
                         <!-- ROSTER DETAILS INFORMATIONS -->
                         <%- include partials_home/_roster_feed %>     
                     </div>
@@ -219,6 +219,14 @@
     
     <!-- ChartJS -->
     <script src="/js/plugins/chartJs/Chart.min.js"></script>
+    
+    <script>
+        $(".mPlusInfo").tooltip({
+            container: "body",
+            placement: "top",
+            html: true
+        });
+    </script>
     
     <script>
         $(document).ready(function() {

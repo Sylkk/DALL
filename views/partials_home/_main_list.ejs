@@ -13,6 +13,8 @@
                             <th></th>
                             <th>Pseudo</th>
                             <th>Log off</th>
+                            <th>M+ this week</th>
+                            <th>Pantheon</th>
                             <th><center>Army of the Light</center></th>
                             <th><center>Crucible (Tier 1-6)</center></th>
                             <th style="text-align:right">AP</th>
@@ -38,8 +40,50 @@
                             <tr>
                                 <td width="30"><img src="<%= char.getRoleIcon() %>" height="20" width="20"></td>
                                 <td><a href="/profile/<%=char.realm%>/<%=char.name%>"><b><span style="color:<%=char.getClassColor()%>"><%=char.name%></span></b></a></td>
-                                <td><i class="fa fa-clock-o" style="<%if(diff >= 5){%>color:red<% }else if(diff >= 3){%>color:orange<% } %>"></i><small><span style="<%if(diff >= 5){%>color:red<% }else if(diff >= 3){%>color:orange<% } %>"> <%=moment(char.lastModified).fromNow() %></span></small></td>
-                                <td width="130">
+                                <td><i class="fa fa-clock-o" style="<%if(diff >= 5){%>color:red<% }else if(diff >= 3){%>color:orange<% } %>"></i>
+                                    <small><span style="<%if(diff >= 5){%>color:red<% }else if(diff >= 3){%>color:orange<% } %>"> <%=moment(char.lastModified).fromNow() %></span></small>
+                                </td>
+                                <td class="listing-roster-items">
+                                    <%#
+                                    {
+                                        dungeon: "Return to Karazhan: Upper",
+                                        short_name: "UPPR",
+                                        mythic_level: 19,
+                                        completed_at: "2017-12-16T02:08:23.000Z",
+                                        clear_time_ms: 2041777,
+                                        num_keystone_upgrades: 1,
+                                        score: 236,
+                                        url: "https://raider.io/mythic-plus/season-7.3.2/runs/927044-19-return-to-karazhan-upper"
+                                    }
+                                    %>
+                                    
+                                    <% var mPlus = char.mPlusHighLvls; %>
+                                    <% if(mPlus) {%>
+                                        <% 
+                                            for(var i=0; i < mPlus.length; i++){ %>
+                                                <a href="<%= mPlus[i].url %>" class="mPlusInfo" title="<%=mPlus[i].dungeon%><br/> Keystone +<%=mPlus[i].num_keystone_upgrades%>">
+                                                    <img src="<%= char.getMPlusIcon(mPlus[i]) %>" width="16" height="16"/>
+                                                    <span class="mPlusLvlNote"><%=mPlus[i].mythic_level%></span>
+                                                </a>&nbsp
+                                           <% }
+                                        %>
+                                    <% } %>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </td>
+                                <td width="230" class="listing-roster-items">
+                                    <% var i = char.getItems()[char.getiPantheon()] %>
+                                    <% if(i){ %>
+                                        <b><a href="//www.wowhead.com/item=<%=i.id%>" rel="<%=char.getiWowHeadRel(i)%>" class="<%=char.getiQuality(i)%>">
+                                            <!--<img src="http://media.blizzard.com/wow/icons/36/<%#i.icon%>.jpg" width="16" height="16"/>-->
+                                        </a></b>
+                                    <span class="pull-right"><b><%=i.itemLevel%></b></span>
+                                    <% } %>
+                                </td>
+                                <td width="150">
                                     <% if(char.getReputation(2165)){ %>
                                         <small class="pull-right">&nbsp&nbsp&nbsp <%=percent %> %</small>
                                         <div class="progress progress-mini">
@@ -47,7 +91,7 @@
                                         </div>
                                     <% } %>
                                 </td>
-                                <td width="150">
+                                <td width="170">
                                     <%var APlvl = char.highestArtLvl;%>
                                     <center>
                                         <i class="fa fa-fw <%if(APlvl >= 60){%>fa-check text-navy<%}else{%>fa-times text-danger<%}%>" aria-hidden="true"></i>
@@ -59,7 +103,7 @@
                                         <i class="fa fa-fw <%if(APlvl >= 75){%>fa-check text-navy<%}else{%>fa-times text-danger<%}%>" aria-hidden="true"></i>
                                     </center>
                                 </td>
-                                <td width="150" align="right" class="text-navy"><i class="ra ra-lightning-bolt"></i> <%= numberWithSep(char.artefactPower); %> </td>
+                                <td width="170" align="right" class="text-navy"><i class="ra ra-lightning-bolt"></i> <%= numberWithSep(char.artefactPower); %> </td>
                             </tr>
                         
                         <% }) %>

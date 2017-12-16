@@ -2,6 +2,7 @@ var mongoose =  require('mongoose');
 var cronJob  =  require('cron').CronJob; 
 var util     =  require('../config/util');
 var bnet     =  require('../config/bnet');
+var raiderIO =  require('../config/raiderIO');
 var locutus  =  require('locutus/php/array');
 
 var Schema   =  mongoose.Schema;
@@ -19,6 +20,7 @@ var CharSchema = mongoose.Schema({
     artefactPower:  Number,
     highestArtLvl:  Number,
     mPlusCache:     {type: Object},
+    mPlusHighLvls:  {type: Object},
     progress:       {   EoA: Number,
                         DHT: Number,
                         NL: Number,
@@ -217,6 +219,39 @@ CharSchema.methods = {
         return baseUrl + size + "/" + prof + ".jpg";
     },
     
+    getMPlusIcon: function(mPlus){
+        var ret = "/img/m+/";
+        switch(mPlus.dungeon){
+            case "Court of Stars": ret+="CoS.jpg";
+                break;
+            case "Maw of Souls": ret+="MoS.jpg";
+                break;
+            case "Neltharion's Lair": ret+="NL.jpg";
+                break;
+            case "Eye of Azshara": ret+="EoA.jpg";
+                break;
+            case "Darkheart Thicket": ret+="DHT.jpg";
+                break;
+            case "Halls of Valor": ret+="HoV.jpg";
+                break;
+            case "Black Rook Hold": ret+="BRH.jpg";
+                break;
+            case "The Arcway": ret+="Arcway.jpg";
+                break;
+            case "Vault of the Wardens": ret+="VotW.jpg";
+                break;
+            case "Return to Karazhan: Lower": ret+="KaraL.jpg";
+                break;
+            case "Return to Karazhan: Upper": ret+="KaraH.jpg";
+                break;
+            case "Cathedral of Eternal Night": ret+="Cathe.jpg";
+                break;
+            case "Seat of the Triumvirate": ret+="SotT.jpg";
+                break;
+        }
+        return ret;
+    },
+    
     /** REPUTATION ************************************************************/
     
     getAllReputation: function(){
@@ -377,7 +412,6 @@ CharSchema.methods = {
      * **/
     //Deprecated now, use bnet.update for save space disk
     getAP: function(index){
-        
         var totalAPGained;
         var aLevel;
         
@@ -514,7 +548,31 @@ CharSchema.methods = {
         else
             return tot+"/6";
     },
-
+    
+    /**
+        pantheon trinket id
+            tank :        154173
+            healer :      154175
+            agility :     154174
+            intellect :   154177
+            strenght :    154176
+            wildcard :    154172
+     * @returns {undefined}
+     */
+    getiPantheon: function(){
+        var items = ["trinket1","trinket2"];
+        var pantheonIds = [154172,154173,154174,154175,154176,154177];
+        var pantheonTrinket = "";
+        for(var i in items){
+            if(typeof this.getItems()[items[i]] !== "undefined"){
+               if(pantheonIds.includes(this.getItems()[items[i]].id)){ 
+                   pantheonTrinket = items[i];
+               }
+           }
+        }
+        return pantheonTrinket;    
+    },
+    
     isiToken: function(item){
         if(typeof item.tooltipParams.set !== "undefined"){
             if(util.isInArray(item.id, item.tooltipParams.set)){
@@ -656,6 +714,7 @@ CharSchema.methods = {
     update: function(){
         console.log("Updating : "+this.realm+" - "+this.name);
         bnet.updateChar(this);
+        raiderIO.updateMPlus(this);
     } 
 };
 

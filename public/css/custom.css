@@ -135,6 +135,19 @@ td.rosterMissing{
                     0    -1px 1px black, 
                     0    1px  1px black;   //h-pos v-pos (blur) (color); //trbl
 }
+/* MAIN-LIST ******************************************************************/
+.mPlusLvlNote{
+    position: absolute;
+    margin-top: 8px;
+    margin-left: -16px;
+    color: white;
+    font-size: 70%;
+    text-shadow:    -1px 0    1px black,
+                    1px  0    1px black,
+                    0    -1px 1px black, 
+                    0    1px  1px black;   //h-pos v-pos (blur) (color); //trbl
+}
+
 
 /* LOGS ***********************************************************************/
 a.list-group-item:hover{
