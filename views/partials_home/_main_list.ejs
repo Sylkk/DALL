@@ -61,17 +61,15 @@
                                     <% if(mPlus) {%>
                                         <% 
                                             for(var i=0; i < mPlus.length; i++){ %>
-                                                <a href="<%= mPlus[i].url %>" class="mPlusInfo" title="<%=mPlus[i].dungeon%><br/> Keystone +<%=mPlus[i].num_keystone_upgrades%>">
+                                                <% var clear_time = mPlus[i].clear_time_ms; var timer = moment.duration(clear_time); %>
+                                                
+                                                <a href="<%= mPlus[i].url %>" class="mPlusInfo" title="<%=mPlus[i].dungeon%><br/>in <%= timer.hours() + "h " + timer.minutes() + "min " + timer.seconds() + "s";%><br/> Keystone +<%=mPlus[i].num_keystone_upgrades%><br/><%=moment(mPlus[i].completed_at).fromNow()%>">
                                                     <img src="<%= char.getMPlusIcon(mPlus[i]) %>" width="16" height="16"/>
                                                     <span class="mPlusLvlNote"><%=mPlus[i].mythic_level%></span>
                                                 </a>&nbsp
                                            <% }
                                         %>
                                     <% } %>
-                                    
-                                    
-                                    
-                                    
                                     
                                 </td>
                                 <td width="230" class="listing-roster-items">

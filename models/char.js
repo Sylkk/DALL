@@ -565,7 +565,7 @@ CharSchema.methods = {
         var pantheonTrinket = "";
         for(var i in items){
             if(typeof this.getItems()[items[i]] !== "undefined"){
-               if(pantheonIds.includes(this.getItems()[items[i]].id)){ 
+               if(util.isInArray(this.getItems()[items[i]].id, pantheonIds)){ 
                    pantheonTrinket = items[i];
                }
            }
