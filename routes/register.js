@@ -10,6 +10,9 @@ var Apply       = mongoose.model('Apply');
 
 var router      = express.Router();
 
+//http://www.danse-avec-les-loots.fr/register/94548915364684654354657374357654357457374687115489709
+//http://localhost:3000/register/94548915364684654354657374357654357457374687115489709
+
 /* code verification for register */
 router.param('code', function(req, res, next, code){
     /*
